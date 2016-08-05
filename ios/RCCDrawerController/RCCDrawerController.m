@@ -18,6 +18,14 @@
 {
     
     self.drawerStyle = props[@"style"];
+    self.shouldStretchDrawer = NO;
+    if (props[@"id"]){
+        self.restorationIdentifier = props[@"id"];
+    }
+    
+    if (props[@"shouldStretchDrawer"]){
+        self.shouldStretchDrawer = [props[@"shouldStretchDrawer"] boolValue];
+    }
     
     // center
     if ([children count] < 1) return nil;
@@ -68,7 +76,6 @@
 
 
 -(void)setStyle {
-    
     if (self.drawerStyle[@"drawerShadow"]) {
         self.showsShadow = ([self.drawerStyle[@"drawerShadow"] boolValue]) ? YES : NO;
     }

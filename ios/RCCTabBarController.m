@@ -221,4 +221,15 @@
     }
 }
 
+
+- (void)viewWillLayoutSubviews
+{
+  if (self.tabBar.hidden){
+    CGRect tabFrame = self.tabBar.frame; //self.TabBar is IBOutlet of your TabBar
+    tabFrame.size.height = 0;
+    tabFrame.origin.y = self.view.frame.size.height;
+    self.tabBar.frame = tabFrame;
+  }
+}
+
 @end
