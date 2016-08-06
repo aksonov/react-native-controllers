@@ -198,6 +198,9 @@ var Controllers = {
         RCCManager.NavigationControllerIOS(id, "setButtons", {buttons: buttons, side: "right", animated: animated});
         return unsubscribe;
       },
+      setNavigatorEventID: function (navigatorEventID) {
+        RCCManager.NavigationControllerIOS(id, "setNavigatorEventID", { navigatorEventID });
+      },
       setHidden: function(params = {}) {
         RCCManager.NavigationControllerIOS(id, "setHidden", params);
       }

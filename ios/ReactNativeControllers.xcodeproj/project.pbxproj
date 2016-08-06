@@ -39,6 +39,7 @@
 		CC84A1A01C1A0C4E00B3A6A2 /* RCCNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC84A1981C1A0C4E00B3A6A2 /* RCCNavigationController.m */; };
 		CC84A1A11C1A0C4E00B3A6A2 /* RCCTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC84A19A1C1A0C4E00B3A6A2 /* RCCTabBarController.m */; };
 		CC84A1A21C1A0C4E00B3A6A2 /* RCCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC84A19C1C1A0C4E00B3A6A2 /* RCCViewController.m */; };
+		D68557921D54177A004D1904 /* UIViewController+RCCBackButtonHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = D68557911D54177A004D1904 /* UIViewController+RCCBackButtonHandler.m */; };
 		D83514F61D29719A00D53758 /* RCCNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = D83514F51D29719A00D53758 /* RCCNotification.m */; };
 		D84813191C8C5EB700051BAF /* RCCLightBox.m in Sources */ = {isa = PBXBuildFile; fileRef = D84813181C8C5EB700051BAF /* RCCLightBox.m */; };
 		D85082E11CBCF54200FDB961 /* RCCDrawerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D85082CB1CBCF54200FDB961 /* RCCDrawerHelper.m */; };
@@ -137,6 +138,8 @@
 		CC84A19A1C1A0C4E00B3A6A2 /* RCCTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = RCCTabBarController.m; sourceTree = "<group>"; tabWidth = 2; };
 		CC84A19B1C1A0C4E00B3A6A2 /* RCCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCCViewController.h; sourceTree = "<group>"; };
 		CC84A19C1C1A0C4E00B3A6A2 /* RCCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = RCCViewController.m; sourceTree = "<group>"; tabWidth = 2; };
+		D68557901D541779004D1904 /* UIViewController+RCCBackButtonHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+RCCBackButtonHandler.h"; sourceTree = "<group>"; };
+		D68557911D54177A004D1904 /* UIViewController+RCCBackButtonHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+RCCBackButtonHandler.m"; sourceTree = "<group>"; };
 		D800E8171CFED1DB004A187F /* RCCExternalViewControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCCExternalViewControllerProtocol.h; sourceTree = "<group>"; };
 		D83514F41D29719A00D53758 /* RCCNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCCNotification.h; sourceTree = "<group>"; };
 		D83514F51D29719A00D53758 /* RCCNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCCNotification.m; sourceTree = "<group>"; };
@@ -348,6 +351,8 @@
 				D800E8171CFED1DB004A187F /* RCCExternalViewControllerProtocol.h */,
 				D83514F41D29719A00D53758 /* RCCNotification.h */,
 				D83514F51D29719A00D53758 /* RCCNotification.m */,
+				D68557901D541779004D1904 /* UIViewController+RCCBackButtonHandler.h */,
+				D68557911D54177A004D1904 /* UIViewController+RCCBackButtonHandler.m */,
 				D8AFADBE1BEE6F3F00A4592D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -472,6 +477,7 @@
 				87B2A14B1D5372B4001AAE68 /* ADFoldTransition.m in Sources */,
 				D85082E41CBCF54200FDB961 /* SidebarAnimation.m in Sources */,
 				87B2A1531D5372B4001AAE68 /* ADSwapTransition.m in Sources */,
+				D68557921D54177A004D1904 /* UIViewController+RCCBackButtonHandler.m in Sources */,
 				D8E11C571CBD1F670018B644 /* RCCDrawerController.m in Sources */,
 				87B2A1541D5372B4001AAE68 /* ADSwipeFadeTransition.m in Sources */,
 				260804DB1CE0D9D20094DBA1 /* RCCToolBar.m in Sources */,
