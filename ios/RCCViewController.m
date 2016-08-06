@@ -245,21 +245,18 @@ const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
     
     NSNumber *navBarHideOnScroll = self.navigatorStyle[@"navBarHideOnScroll"];
     BOOL navBarHideOnScrollBool = navBarHideOnScroll ? [navBarHideOnScroll boolValue] : NO;
-    if ([viewController.navigationController respondsToSelector:@selector(hidesBarsOnSwipe)])
+    if (navBarHideOnScrollBool)
     {
-      if (navBarHideOnScrollBool)
-      {
         viewController.navigationController.hidesBarsOnSwipe = YES;
-      }
-      else
-      {
+    }
+    else
+    {
         viewController.navigationController.hidesBarsOnSwipe = NO;
-      }
     }
     
     NSNumber *statusBarBlur = self.navigatorStyle[@"statusBarBlur"];
     BOOL statusBarBlurBool = statusBarBlur ? [statusBarBlur boolValue] : NO;
-    if (statusBarBlurBool && [UIBlurEffect class])
+    if (statusBarBlurBool)
     {
         if (![viewController.view viewWithTag:BLUR_STATUS_TAG])
         {
@@ -269,11 +266,10 @@ const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
             [viewController.view addSubview:blur];
         }
     }
-  
+    
     NSNumber *navBarBlur = self.navigatorStyle[@"navBarBlur"];
     BOOL navBarBlurBool = navBarBlur ? [navBarBlur boolValue] : NO;
-  
-    if (navBarBlurBool && [UIBlurEffect class])
+    if (navBarBlurBool)
     {
         if (![viewController.navigationController.navigationBar viewWithTag:BLUR_NAVBAR_TAG])
         {
