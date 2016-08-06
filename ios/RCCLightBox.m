@@ -34,8 +34,7 @@ const NSInteger kLightBoxTag = 0x101010;
         if (self.params != nil && style != nil)
         {
             
-            if (style[@"backgroundBlur"] != nil && ![style[@"backgroundBlur"] isEqualToString:@"none"] && [UIVisualEffectView class])
-                                                                                                           
+            if (style[@"backgroundBlur"] != nil && ![style[@"backgroundBlur"] isEqualToString:@"none"])
             {
                 self.visualEffectView = [[UIVisualEffectView alloc] init];
                 self.visualEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -114,30 +113,23 @@ const NSInteger kLightBoxTag = 0x101010;
     }
 }
 
--(NSObject*)blurEffectForCurrentStyle
+-(UIBlurEffect*)blurEfectForCurrentStyle
 {
-    if ([UIBlurEffect class])
-    {
-        NSDictionary *style = self.params[@"style"];
-        NSString *backgroundBlur = style[@"backgroundBlur"];
-        if ([backgroundBlur isEqualToString:@"none"])
-        {
-            return nil;
-        }
-        
-        UIBlurEffectStyle blurEffectStyle = UIBlurEffectStyleDark;
-        if ([backgroundBlur isEqualToString:@"light"])
-            blurEffectStyle = UIBlurEffectStyleLight;
-        else if ([backgroundBlur isEqualToString:@"xlight"])
-            blurEffectStyle = UIBlurEffectStyleExtraLight;
-        else if ([backgroundBlur isEqualToString:@"dark"])
-            blurEffectStyle = UIBlurEffectStyleDark;
-        return [UIBlurEffect effectWithStyle:blurEffectStyle];
-    }
-    else
+    NSDictionary *style = self.params[@"style"];
+    NSString *backgroundBlur = style[@"backgroundBlur"];
+    if ([backgroundBlur isEqualToString:@"none"])
     {
         return nil;
     }
+    
+    UIBlurEffectStyle blurEffectStyle = UIBlurEffectStyleDark;
+    if ([backgroundBlur isEqualToString:@"light"])
+        blurEffectStyle = UIBlurEffectStyleLight;
+    else if ([backgroundBlur isEqualToString:@"xlight"])
+        blurEffectStyle = UIBlurEffectStyleExtraLight;
+    else if ([backgroundBlur isEqualToString:@"dark"])
+        blurEffectStyle = UIBlurEffectStyleDark;
+    return [UIBlurEffect effectWithStyle:blurEffectStyle];
 }
 
 -(void)showAnimated
@@ -148,7 +140,7 @@ const NSInteger kLightBoxTag = 0x101010;
          {
              if (self.visualEffectView != nil)
              {
-                 self.visualEffectView.effect = [self blurEffectForCurrentStyle];
+                 self.visualEffectView.effect = [self blurEfectForCurrentStyle];
              }
              
              if (self.overlayColorView != nil)
