@@ -222,6 +222,7 @@ const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
 
 -(void)setStyleOnAppearForViewController:(UIViewController*)viewController
 {
+  viewController.navigationController.navigationBar.userInteractionEnabled = YES;
     NSString *navBarBackgroundColor = self.navigatorStyle[@"navBarBackgroundColor"];
     if (navBarBackgroundColor)
     {

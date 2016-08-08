@@ -181,6 +181,8 @@ NSString * ADTransitionControllerAssociationKey = @"ADTransitionControllerAssoci
     _isContainerViewTransitioning = animated;
     transition.delegate = self;
     transition.type = ADTransitionTypePush;
+    viewIn.userInteractionEnabled = NO;
+    viewOut.userInteractionEnabled = NO;
     [self _transitionfromView:viewOut toView:viewIn withTransition:transition];
     
     if (!animated) { // Call the delegate method if no animation
@@ -294,10 +296,12 @@ NSString * ADTransitionControllerAssociationKey = @"ADTransitionControllerAssoci
         UIViewController * outViewController = _viewControllers[([_viewControllers count] - 2)];
         [outViewController.view removeFromSuperview];
         [outViewController endAppearanceTransition];
+        outViewController.view.userInteractionEnabled = YES;
     }
     UIViewController * inViewController = [_viewControllers lastObject];
     [inViewController endAppearanceTransition];
     [inViewController didMoveToParentViewController:self];
+    inViewController.view.userInteractionEnabled = YES;
     _isContainerViewTransitioning = NO;
     if ([self.delegate respondsToSelector:@selector(transitionController:didShowViewController:animated:)]) {
         [self.delegate transitionController:self didShowViewController:inViewController animated:animated];

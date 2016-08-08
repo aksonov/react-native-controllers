@@ -164,6 +164,12 @@ var Controllers = {
       setTitle: function (params) {
         RCCManager.NavigationControllerIOS(id, "setTitle", params);
       },
+      setTitleImage: function (params) {
+        RCCManager.NavigationControllerIOS(id, "setTitleImage", params);
+      },
+      refresh: function (params) {
+        RCCManager.NavigationControllerIOS(id, "refresh", params);
+      },
       resetTo: function (params) {
         var unsubscribes = [];
         if (params['style']) {

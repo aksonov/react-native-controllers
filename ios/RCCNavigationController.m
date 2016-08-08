@@ -3,6 +3,7 @@
 #import "RCCManager.h"
 #import "RCTEventDispatcher.h"
 #import "RCTConvert.h"
+#import "RCTRootView.h"
 
 @implementation RCCNavigationController
 
@@ -218,6 +219,11 @@ NSString const *CALLBACK_ASSOCIATED_ID = @"RCCNavigationController.CALLBACK_ASSO
     return;
   }
   
+  if ([performAction isEqualToString:@"refresh"]){
+    RCTRootView *view = (RCTRootView *)self.topViewController.view;
+    view.appProperties = actionParams;
+  }
+  
   // toggleNavBar
   if ([performAction isEqualToString:@"setHidden"]) {
     NSNumber *animated = actionParams[@"animated"];
@@ -243,6 +249,7 @@ NSString const *CALLBACK_ASSOCIATED_ID = @"RCCNavigationController.CALLBACK_ASSO
      @"type": @"NavBarButtonPress",
      @"id": buttonId ? buttonId : [NSNull null]
    }];
+  
 }
 
 -(void)setButtons:(NSArray*)buttons viewController:(RCCViewController*)viewController side:(NSString*)side animated:(BOOL)animated

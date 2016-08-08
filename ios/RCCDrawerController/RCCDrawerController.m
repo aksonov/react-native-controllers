@@ -18,7 +18,6 @@
 {
     
     self.drawerStyle = props[@"style"];
-    self.shouldStretchDrawer = NO;
     if (props[@"id"]){
         self.restorationIdentifier = props[@"id"];
     }
