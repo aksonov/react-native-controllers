@@ -4,6 +4,7 @@
 #import "RCTEventDispatcher.h"
 #import "RCTConvert.h"
 #import "RCTRootView.h"
+#import "UIBarButtonItem+Badge.h"
 
 @implementation RCCNavigationController
 
@@ -194,7 +195,7 @@ NSString const *CALLBACK_ASSOCIATED_ID = @"RCCNavigationController.CALLBACK_ASSO
     BOOL animated = actionParams[@"animated"] ? [actionParams[@"animated"] boolValue] : YES;
     NSString *side = actionParams[@"side"] ? actionParams[@"side"] : @"left";
     
-    [self setButtons:buttons viewController:self.topViewController side:side animated:animated];
+    [self setButtons:buttons viewController:(RCCViewController *)self.topViewController side:side animated:animated];
     return;
   }
   
@@ -222,6 +223,12 @@ NSString const *CALLBACK_ASSOCIATED_ID = @"RCCNavigationController.CALLBACK_ASSO
   if ([performAction isEqualToString:@"refresh"]){
     RCTRootView *view = (RCTRootView *)self.topViewController.view;
     view.appProperties = actionParams;
+  }
+  
+  if ([performAction isEqualToString:@"setStyle"]){
+    RCCViewController *controller = (RCCViewController *)self.topViewController;
+    controller.navigatorStyle = [NSMutableDictionary dictionaryWithDictionary:actionParams];
+    [controller setStyleOnAppear];
   }
   
   // toggleNavBar
@@ -302,18 +309,75 @@ NSString const *CALLBACK_ASSOCIATED_ID = @"RCCNavigationController.CALLBACK_ASSO
     {
       barButtonItem.accessibilityIdentifier = testID;
     }
+
+    if ([side isEqualToString:@"left"])
+    {
+      viewController.navigationItem.leftBarButtonItems = nil;
+      [viewController.navigationItem setLeftBarButtonItem:barButtonItems[0] animated:animated];
+    }
+    
+    if ([side isEqualToString:@"right"])
+    {
+      viewController.navigationItem.rightBarButtonItem = barButtonItems[0];
+      //[viewController.navigationItem setRightBarButtonItem:barButtonItems[0] animated:animated];
+    }
+    
+    
+    NSString *badgeValue = button[@"badgeValue"];
+    if (badgeValue){
+      barButtonItem.badgeValue = badgeValue;
+    }
+    NSString *badgeColor = button[@"badgeBGColor"];
+    if (badgeColor){
+      barButtonItem.badgeBGColor = [RCTConvert UIColor:badgeColor];
+    }
+    float badgeMinSize = [button[@"badgeMinSize"] floatValue];
+    if (badgeMinSize){
+      barButtonItem.badgeMinSize = badgeMinSize;
+    }
+    float badgeFontSize = [button[@"badgeFontSize"] floatValue] || 13.0f;
+    NSString *badgeFontFamily = button[@"badgeFontFamily"];
+    if (badgeFontFamily){
+      barButtonItem.badgeFont = [UIFont fontWithName:badgeFontFamily size:badgeFontSize];
+    }
+    
+    NSString *navBarTextColor = button[@"textColor"];
+    NSString *navBarFontFamily = button[@"fontFamily"];
+    float navBarFontSize = [button[@"navBarFontSize"] floatValue];
+    if (navBarTextColor || navBarFontFamily)
+    {
+      NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithDictionary: [[UINavigationBar appearance] titleTextAttributes]];
+      if (navBarTextColor)
+      {
+        UIColor *color = navBarTextColor != (id)[NSNull null] ? [RCTConvert UIColor:navBarTextColor] : nil;
+        [attributes setValue:color forKey:NSForegroundColorAttributeName];
+      }
+      
+      if (navBarFontFamily)
+      {
+        if (!navBarFontSize)
+        {
+          navBarFontSize = 15.0f;
+        }
+        UIFont *font = [UIFont fontWithName:navBarFontFamily size:navBarFontSize];
+        [attributes setValue:font forKey:NSFontAttributeName];
+      }
+      
+      [barButtonItem setTitleTextAttributes:attributes forState:UIControlStateNormal];
+    }
   }
-  
-  if ([side isEqualToString:@"left"])
-  {
-    [viewController.navigationItem setLeftBarButtonItems:barButtonItems animated:animated];
+  if (!barButtonItems.count){
+    if ([side isEqualToString:@"left"])
+    {
+      [viewController.navigationItem setLeftBarButtonItems:barButtonItems animated:animated];
+    }
+    
+    if ([side isEqualToString:@"right"])
+    {
+      [viewController.navigationItem setRightBarButtonItems:barButtonItems animated:animated];
+    }
+
   }
-  
-  if ([side isEqualToString:@"right"])
-  {
-    [viewController.navigationItem setRightBarButtonItems:barButtonItems animated:animated];
-  }
-  
   if ([side isEqualToString:@"back"] && barButtonItems.count > 0)
   {
     viewController.backButtonItem = barButtonItems[0];
