@@ -9,6 +9,7 @@
 #import "RCCExternalViewControllerProtocol.h"
 #import "RNCubeController.h"
 #import "RCTEventDispatcher.h"
+#import "UIBarButtonItem+Badge.h"
 
 const NSInteger BLUR_STATUS_TAG = 78264801;
 const NSInteger BLUR_NAVBAR_TAG = 78264802;
@@ -434,6 +435,7 @@ const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
       self.navigationController.interactivePopGestureRecognizer.delegate = self;
     }
   }
+  
 }
 
 -(void)storeOriginalNavBarImages {

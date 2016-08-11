@@ -191,6 +191,10 @@ var Controllers = {
           }
         };
       },
+      setStyle: function(params){
+        _processProperties(params);
+        RCCManager.NavigationControllerIOS(id, "setStyle", params);
+      },
       setLeftButton: function () {
         console.error('setLeftButton is deprecated, see setLeftButtons');
       },
