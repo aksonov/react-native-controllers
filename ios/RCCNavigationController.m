@@ -5,38 +5,34 @@
 #import "RCTConvert.h"
 #import "RCTRootView.h"
 #import "UIBarButtonItem+Badge.h"
+#import "UIViewController+NavBarButtons.h"
 
+@interface RCCNavigationController() {
+  NSArray *_children;
+  NSDictionary*_globalProps;
+  RCTBridge *_bridge;
+}
+
+
+@end
 @implementation RCCNavigationController
-
-NSString const *CALLBACK_ASSOCIATED_KEY = @"RCCNavigationController.CALLBACK_ASSOCIATED_KEY";
-NSString const *CALLBACK_ASSOCIATED_ID = @"RCCNavigationController.CALLBACK_ASSOCIATED_ID";
 
 - (instancetype)initWithProps:(NSDictionary *)props children:(NSArray *)children globalProps:(NSDictionary*)globalProps bridge:(RCTBridge *)bridge
 {
+  _globalProps = globalProps;
+  _bridge = bridge;
   NSString *component = props[@"component"];
-  if (!component) return nil;
-  
   NSDictionary *passProps = props[@"passProps"];
   NSDictionary *navigatorStyle = props[@"style"];
   
-  RCCViewController *viewController = [[RCCViewController alloc] initWithComponent:component passProps:passProps navigatorStyle:navigatorStyle globalProps:globalProps bridge:bridge];
-  if (!viewController) return nil;
+  RCCViewController *viewController;
   
-  NSString *title = props[@"title"];
-  if (title) viewController.title = title;
-  
-  [self setTitleIamgeForVC:viewController titleImageData:props[@"titleImage"]];
-  
-  NSArray *leftButtons = props[@"leftButtons"];
-  if (leftButtons)
-  {
-    [self setButtons:leftButtons viewController:viewController side:@"left" animated:NO];
-  }
-  
-  NSArray *rightButtons = props[@"rightButtons"];
-  if (rightButtons)
-  {
-    [self setButtons:rightButtons viewController:viewController side:@"right" animated:NO];
+  if (!component) {
+    if ([children count] < 1) return nil;
+    _children = children;
+    viewController = [RCCViewController controllerWithLayout:children[0] globalProps:globalProps bridge:bridge];
+  } else {
+    viewController = [[RCCViewController alloc] initWithComponent:component passProps:passProps navigatorStyle:navigatorStyle globalProps:globalProps bridge:bridge];
   }
   
   self = [super initWithRootViewController:viewController];
@@ -55,7 +51,23 @@ NSString const *CALLBACK_ASSOCIATED_ID = @"RCCNavigationController.CALLBACK_ASSO
   if ([performAction isEqualToString:@"push"])
   {
     NSString *component = actionParams[@"component"];
-    if (!component) return;
+    RCCViewController *viewController;
+    if (!component) {
+      NSString *ident = actionParams[@"id"];
+      if (!ident) return;
+      if ([[self topViewController].navigatorID isEqualToString:ident]){
+        return;
+      }
+      for (int i=0;i<[_children count];i++){
+        if ([_children[i][@"props"][@"id"] isEqualToString:ident]){
+          viewController = [RCCViewController controllerWithLayout:_children[i] globalProps:_globalProps bridge:_bridge];
+          if ([viewController respondsToSelector:@selector(setProps:)]){
+            [viewController setProps:actionParams[@"passProps"]];
+          }
+          break;
+        }
+      }
+    } else {
     
     NSDictionary *passProps = actionParams[@"passProps"];
     NSDictionary *navigatorStyle = actionParams[@"style"];
@@ -81,56 +93,8 @@ NSString const *CALLBACK_ASSOCIATED_ID = @"RCCNavigationController.CALLBACK_ASSO
       navigatorStyle = mergedStyle;
     }
     
-    RCCViewController *viewController = [[RCCViewController alloc] initWithComponent:component passProps:passProps navigatorStyle:navigatorStyle globalProps:nil bridge:bridge];
-    
-    NSString *title = actionParams[@"title"];
-    if (title) viewController.title = title;
-    
-    [self setTitleIamgeForVC:viewController titleImageData:actionParams[@"titleImage"]];
-    
-    NSString *backButtonTitle = actionParams[@"backButtonTitle"];
-    if (backButtonTitle)
-    {
-      UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:backButtonTitle
-                                                                   style:UIBarButtonItemStylePlain
-                                                                  target:nil
-                                                                  action:nil];
-      
-      self.topViewController.navigationItem.backBarButtonItem = backItem;
+    viewController = [[RCCViewController alloc] initWithComponent:component passProps:passProps navigatorStyle:navigatorStyle globalProps:nil bridge:bridge];
     }
-    else
-    {
-      self.topViewController.navigationItem.backBarButtonItem = nil;
-    }
-    
-    NSNumber *backButtonHidden = actionParams[@"backButtonHidden"];
-    BOOL backButtonHiddenBool = backButtonHidden ? [backButtonHidden boolValue] : NO;
-    if (backButtonHiddenBool)
-    {
-      viewController.navigationItem.hidesBackButton = YES;
-    }
-    
-    NSNumber *backButtonIntercept = actionParams[@"backButtonIntercept"];
-    BOOL backButtonInterceptBool = backButtonIntercept ? [backButtonIntercept boolValue] : NO;
-    viewController.shouldInterceptBackButton = backButtonInterceptBool;
-    
-    id backButton = actionParams[@"backButton"];
-    if (backButton) {
-      [self setButtons:@[ backButton ] viewController:viewController side:@"back" animated:NO];
-    }
-    
-    NSArray *leftButtons = actionParams[@"leftButtons"];
-    if (leftButtons)
-    {
-      [self setButtons:leftButtons viewController:viewController side:@"left" animated:NO];
-    }
-    
-    NSArray *rightButtons = actionParams[@"rightButtons"];
-    if (rightButtons)
-    {
-      [self setButtons:rightButtons viewController:viewController side:@"right" animated:NO];
-    }
-    
     [self pushViewController:viewController animated:animated];
     return;
   }
@@ -160,42 +124,9 @@ NSString const *CALLBACK_ASSOCIATED_ID = @"RCCNavigationController.CALLBACK_ASSO
     
     RCCViewController *viewController = [[RCCViewController alloc] initWithComponent:component passProps:passProps navigatorStyle:navigatorStyle globalProps:nil bridge:bridge];
     
-    NSString *title = actionParams[@"title"];
-    if (title) viewController.title = title;
-    
-    [self setTitleIamgeForVC:viewController titleImageData:actionParams[@"titleImage"]];
-    
-    id backButton = actionParams[@"backButton"];
-    if (backButton) {
-      [self setButtons:@[ backButton ] viewController:viewController side:@"back" animated:NO];
-    }
-    
-    NSArray *leftButtons = actionParams[@"leftButtons"];
-    if (leftButtons)
-    {
-      [self setButtons:leftButtons viewController:viewController side:@"left" animated:NO];
-    }
-    
-    NSArray *rightButtons = actionParams[@"rightButtons"];
-    if (rightButtons)
-    {
-      [self setButtons:rightButtons viewController:viewController side:@"right" animated:NO];
-    }
-    
     BOOL animated = actionParams[@"animated"] ? [actionParams[@"animated"] boolValue] : YES;
     
     [self setViewControllers:@[viewController] animated:animated];
-    return;
-  }
-  
-  // setButtons
-  if ([performAction isEqualToString:@"setButtons"])
-  {
-    NSArray *buttons = actionParams[@"buttons"];
-    BOOL animated = actionParams[@"animated"] ? [actionParams[@"animated"] boolValue] : YES;
-    NSString *side = actionParams[@"side"] ? actionParams[@"side"] : @"left";
-    
-    [self setButtons:buttons viewController:(RCCViewController *)self.topViewController side:side animated:animated];
     return;
   }
   
@@ -204,25 +135,6 @@ NSString const *CALLBACK_ASSOCIATED_ID = @"RCCNavigationController.CALLBACK_ASSO
   {
     self.navigatorEventID = actionParams[@"navigatorEventID"];
     return;
-  }
-  
-  // setTitle
-  if ([performAction isEqualToString:@"setTitle"])
-  {
-    NSString *title = actionParams[@"title"];
-    if (title) self.topViewController.title = title;
-    return;
-  }
-  
-  if ([performAction isEqualToString:@"setTitleImage"])
-  {
-    [self setTitleIamgeForVC:self.topViewController titleImageData:actionParams[@"titleImage"]];
-    return;
-  }
-  
-  if ([performAction isEqualToString:@"refresh"]){
-    RCTRootView *view = (RCTRootView *)self.topViewController.view;
-    view.appProperties = actionParams;
   }
   
   if ([performAction isEqualToString:@"setStyle"]){
@@ -246,170 +158,17 @@ NSString const *CALLBACK_ASSOCIATED_ID = @"RCCNavigationController.CALLBACK_ASSO
     }
 }
 
--(void)onButtonPress:(UIBarButtonItem*)barButtonItem
-{
-  NSString *callbackId = objc_getAssociatedObject(barButtonItem, &CALLBACK_ASSOCIATED_KEY);
-  if (!callbackId) return;
-  NSString *buttonId = objc_getAssociatedObject(barButtonItem, &CALLBACK_ASSOCIATED_ID);
-  [[[RCCManager sharedInstance] getBridge].eventDispatcher sendAppEventWithName:callbackId body:@
-   {
-     @"type": @"NavBarButtonPress",
-     @"id": buttonId ? buttonId : [NSNull null]
-   }];
-  
-}
-
--(void)setButtons:(NSArray*)buttons viewController:(RCCViewController*)viewController side:(NSString*)side animated:(BOOL)animated
-{
-  NSMutableArray *barButtonItems = [NSMutableArray new];
-  for (NSDictionary *button in buttons)
-  {
-    NSString *title = button[@"title"];
-    UIImage *iconImage = nil;
-    id icon = button[@"icon"];
-    if (icon) iconImage = [RCTConvert UIImage:icon];
-    
-    UIBarButtonItem *barButtonItem;
-    if (iconImage)
-    {
-      barButtonItem = [[UIBarButtonItem alloc] initWithImage:iconImage style:UIBarButtonItemStylePlain target:self action:@selector(onButtonPress:)];
-    }
-    else if (title)
-    {
-      barButtonItem = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStylePlain target:self action:@selector(onButtonPress:)];
-    }
-    else if ([side isEqualToString:@"back"])
-    {
-      barButtonItem = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStylePlain target:self action:@selector(onButtonPress:)];
-    }
-    else continue;
-    objc_setAssociatedObject(barButtonItem, &CALLBACK_ASSOCIATED_KEY, button[@"onPress"], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    [barButtonItems addObject:barButtonItem];
-    
-    NSString *buttonId = button[@"id"];
-    if (buttonId)
-    {
-      objc_setAssociatedObject(barButtonItem, &CALLBACK_ASSOCIATED_ID, buttonId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    }
-    
-    NSNumber *disabled = button[@"disabled"];
-    BOOL disabledBool = disabled ? [disabled boolValue] : NO;
-    if (disabledBool) {
-      [barButtonItem setEnabled:NO];
-    }
-    
-    NSNumber *disableIconTintString = button[@"disableIconTint"];
-    BOOL disableIconTint = disableIconTintString ? [disableIconTintString boolValue] : NO;
-    if (disableIconTint) {
-      [barButtonItem setImage:[barButtonItem.image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    }
-
-    NSString *testID = button[@"testID"];
-    if (testID)
-    {
-      barButtonItem.accessibilityIdentifier = testID;
-    }
-
-    if ([side isEqualToString:@"left"])
-    {
-      viewController.navigationItem.leftBarButtonItems = nil;
-      [viewController.navigationItem setLeftBarButtonItem:barButtonItems[0] animated:animated];
-    }
-    
-    if ([side isEqualToString:@"right"])
-    {
-      viewController.navigationItem.rightBarButtonItem = barButtonItems[0];
-      //[viewController.navigationItem setRightBarButtonItem:barButtonItems[0] animated:animated];
-    }
-    
-    
-    NSString *badgeValue = button[@"badgeValue"];
-    if (badgeValue){
-      barButtonItem.badgeValue = badgeValue;
-    }
-    NSString *badgeColor = button[@"badgeBGColor"];
-    if (badgeColor){
-      barButtonItem.badgeBGColor = [RCTConvert UIColor:badgeColor];
-    }
-    float badgeMinSize = [button[@"badgeMinSize"] floatValue];
-    if (badgeMinSize){
-      barButtonItem.badgeMinSize = badgeMinSize;
-    }
-    float badgeFontSize = [button[@"badgeFontSize"] floatValue] || 13.0f;
-    NSString *badgeFontFamily = button[@"badgeFontFamily"];
-    if (badgeFontFamily){
-      barButtonItem.badgeFont = [UIFont fontWithName:badgeFontFamily size:badgeFontSize];
-    }
-    
-    NSString *navBarTextColor = button[@"textColor"];
-    NSString *navBarFontFamily = button[@"fontFamily"];
-    float navBarFontSize = [button[@"navBarFontSize"] floatValue];
-    if (navBarTextColor || navBarFontFamily)
-    {
-      NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithDictionary: [[UINavigationBar appearance] titleTextAttributes]];
-      if (navBarTextColor)
-      {
-        UIColor *color = navBarTextColor != (id)[NSNull null] ? [RCTConvert UIColor:navBarTextColor] : nil;
-        [attributes setValue:color forKey:NSForegroundColorAttributeName];
+- (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item {
+  RCCViewController* vc = [self topViewController];
+    dispatch_async(dispatch_get_main_queue(), ^{
+      if ([vc respondsToSelector:@selector(onPop)]){
+        [vc onPop];
       }
-      
-      if (navBarFontFamily)
-      {
-        if (!navBarFontSize)
-        {
-          navBarFontSize = 15.0f;
-        }
-        UIFont *font = [UIFont fontWithName:navBarFontFamily size:navBarFontSize];
-        [attributes setValue:font forKey:NSFontAttributeName];
-      }
-      
-      [barButtonItem setTitleTextAttributes:attributes forState:UIControlStateNormal];
-    }
-  }
-  if (!barButtonItems.count){
-    if ([side isEqualToString:@"left"])
-    {
-      [viewController.navigationItem setLeftBarButtonItems:barButtonItems animated:animated];
-    }
-    
-    if ([side isEqualToString:@"right"])
-    {
-      [viewController.navigationItem setRightBarButtonItems:barButtonItems animated:animated];
-    }
-
-  }
-  if ([side isEqualToString:@"back"] && barButtonItems.count > 0)
-  {
-    viewController.backButtonItem = barButtonItems[0];
-  }
+      [self popViewControllerAnimated:YES];
+    });
+  return YES;
 }
 
--(void)setTitleIamgeForVC:(UIViewController*)viewController titleImageData:(id)titleImageData
-{
-  if (!titleImageData || [titleImageData isEqual:[NSNull null]])
-  {
-    viewController.navigationItem.titleView = nil;
-    return;
-  }
-  
-  UIImage *titleImage = [RCTConvert UIImage:titleImageData];
-  if (titleImage)
-  {
-    viewController.navigationItem.titleView = [[UIImageView alloc] initWithImage:titleImage];
-  }
-}
 
--(void)onPop
-{
-  RCCViewController *viewController = (RCCViewController *)self.visibleViewController;
-  NSString *type = viewController.shouldInterceptBackButton ? @"NavBackButtonIntercepted" : @"ViewPopped";
-  
-  NSString *callbackId = objc_getAssociatedObject(viewController.backButtonItem, &CALLBACK_ASSOCIATED_KEY);
-  if (!callbackId) return;
-  [[[RCCManager sharedInstance] getBridge].eventDispatcher sendAppEventWithName:callbackId body:@
-   {
-     @"type": type
-   }];
-}
 
 @end

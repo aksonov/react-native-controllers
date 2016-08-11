@@ -222,6 +222,16 @@ NavigationControllerIOS:(NSString*)controllerId performAction:(NSString*)perform
 }
 
 RCT_EXPORT_METHOD(
+                  ViewControllerIOS:(NSString*)controllerId performAction:(NSString*)performAction actionParams:(NSDictionary*)actionParams)
+{
+    if (!controllerId || !performAction) return;
+    RCCViewController* controller = [[RCCManager sharedInstance] getControllerWithId:controllerId componentType:@"ViewControllerIOS"];
+    if (!controller || ![controller isKindOfClass:[RCCViewController class]]) return;
+    return [controller performAction:performAction actionParams:actionParams bridge:[[RCCManager sharedInstance] getBridge]];
+}
+
+
+RCT_EXPORT_METHOD(
 DrawerControllerIOS:(NSString*)controllerId performAction:(NSString*)performAction actionParams:(NSDictionary*)actionParams)
 {
   if (!controllerId || !performAction) return;

@@ -10,10 +10,13 @@
 #import "RNCubeController.h"
 #import "RCTEventDispatcher.h"
 #import "UIBarButtonItem+Badge.h"
+#import "RCCEventEmitter.h"
+#import "UIViewController+NavBarButtons.h"
 
 const NSInteger BLUR_STATUS_TAG = 78264801;
 const NSInteger BLUR_NAVBAR_TAG = 78264802;
 const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
+
 
 @interface RCCViewController() <UIGestureRecognizerDelegate>
 @property (nonatomic) BOOL _hidesBottomBarWhenPushed;
@@ -90,6 +93,47 @@ const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
       controller = [[RCCDrawerController alloc] initWithProps:props children:children globalProps:globalProps bridge:bridge];
     }
   }
+  NSString *title = props[@"title"];
+  if (title){
+    controller.title = title;
+  }
+  [controller setTitleImage:props[@"titleImage"]];
+  
+  NSArray *leftButtons = props[@"leftButtons"];
+  if (leftButtons)
+  {
+    [controller setButtons:leftButtons side:@"left" animated:NO];
+  }
+  
+  NSArray *rightButtons = props[@"rightButtons"];
+  if (rightButtons)
+  {
+    [controller setButtons:rightButtons side:@"right" animated:NO];
+  }
+  
+  
+  NSString *backButtonTitle = props[@"backButtonTitle"];
+  if (backButtonTitle)
+  {
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:backButtonTitle
+                                                                 style:UIBarButtonItemStylePlain
+                                                                target:nil
+                                                                action:nil];
+    
+    controller.navigationItem.backBarButtonItem = backItem;
+  }
+  else
+  {
+    controller.navigationItem.backBarButtonItem = nil;
+  }
+  
+  NSNumber *backButtonHidden = props[@"backButtonHidden"];
+  BOOL backButtonHiddenBool = backButtonHidden ? [backButtonHidden boolValue] : NO;
+  if (backButtonHiddenBool)
+  {
+    controller.navigationItem.hidesBackButton = YES;
+  }
+  
   
   // register the controller if we have an id
   NSString *componentId = props[@"id"];
@@ -103,6 +147,14 @@ const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
 
 - (instancetype)initWithProps:(NSDictionary *)props children:(NSArray *)children globalProps:(NSDictionary *)globalProps bridge:(RCTBridge *)bridge
 {
+  if (props[@"id"]){
+    self.navigatorID = props[@"id"];
+  }
+  
+  if (props[@"key"]){
+    self.navigatorID = props[@"key"];
+  }
+  
   NSString *component = props[@"component"];
   if (!component) return nil;
   
@@ -119,7 +171,6 @@ const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
   if (!self) return nil;
   
   [self commonInit:reactView navigatorStyle:navigatorStyle props:props];
-  
   return self;
 }
 
@@ -172,15 +223,10 @@ const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
 
 - (void)viewWillAppear:(BOOL)animated
 {
-  RCCNavigationController *navController = self.navigationController;
-  
-  NSString *callbackId = navController.navigatorEventID;
-  if (callbackId) {
-    [[[RCCManager sharedInstance] getBridge].eventDispatcher sendAppEventWithName:callbackId body:@
-     {
-       @"type": @"WillFocus"
-     }];
+  if (self.navigatorID) {
+    [[RCCEventEmitter sharedInstance] willFocus:self.navigatorID];
   }
+  
   
   [super viewWillAppear:animated];
   
@@ -190,18 +236,12 @@ const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
 - (void)viewDidAppear:(BOOL)animated
 {
   // If we're intercepting the back button to perform some kind of action then we don't want users to be able to swipe back
-  if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-    self.navigationController.interactivePopGestureRecognizer.enabled = !self.shouldInterceptBackButton;
-  }
+//  if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+//    self.navigationController.interactivePopGestureRecognizer.enabled = !self.shouldInterceptBackButton;
+//  }
   
-  RCCNavigationController *navController = self.navigationController;
-  
-  NSString *callbackId = navController.navigatorEventID;
-  if (callbackId) {
-    [[[RCCManager sharedInstance] getBridge].eventDispatcher sendAppEventWithName:callbackId body:@
-     {
-       @"type": @"DidFocus"
-     }];
+  if (self.navigatorID) {
+    [[RCCEventEmitter sharedInstance] didFocus:self.navigatorID];
   }
   
   [super viewDidAppear:animated];
@@ -586,17 +626,6 @@ const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
   }
 }
 
-- (BOOL)navigationShouldPopOnBackButton
-{
-  RCCNavigationController *navController = (RCCNavigationController *)self.navigationController;
-  RCCViewController *viewController = (RCCViewController *)navController.visibleViewController;
-  if (!viewController.shouldInterceptBackButton) return YES;
-  
-  [navController onPop];
-  
-  return NO;
-}
-
 #pragma mark - NewRelic
 
 - (NSString*) customNewRelicInteractionName
@@ -619,5 +648,40 @@ const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
   
   return interactionName;
 }
+
+- (void)performAction:(NSString*)performAction actionParams:(NSDictionary*)actionParams bridge:(RCTBridge *)bridge
+{
+  if ([performAction isEqualToString:@"refresh"]){
+    [self setProps:actionParams];
+  }
+  // setButtons
+  if ([performAction isEqualToString:@"setButtons"])
+  {
+    NSArray *buttons = actionParams[@"buttons"];
+    BOOL animated = actionParams[@"animated"] ? [actionParams[@"animated"] boolValue] : YES;
+    NSString *side = actionParams[@"side"] ? actionParams[@"side"] : @"left";
+    
+    [self setButtons:buttons side:side animated:animated];
+    return;
+  }
+  
+  // setTitle
+  if ([performAction isEqualToString:@"setTitle"])
+  {
+    NSString *title = actionParams[@"title"];
+    if (title) self.title = title;
+    return;
+  }
+  
+  if ([performAction isEqualToString:@"setTitleImage"])
+  {
+    [self setTitleImage:actionParams[@"titleImage"]];
+    return;
+  }
+  
+  
+
+}
+
 
 @end

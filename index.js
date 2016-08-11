@@ -167,9 +167,6 @@ var Controllers = {
       setTitleImage: function (params) {
         RCCManager.NavigationControllerIOS(id, "setTitleImage", params);
       },
-      refresh: function (params) {
-        RCCManager.NavigationControllerIOS(id, "refresh", params);
-      },
       resetTo: function (params) {
         var unsubscribes = [];
         if (params['style']) {
@@ -194,19 +191,6 @@ var Controllers = {
       setStyle: function(params){
         _processProperties(params);
         RCCManager.NavigationControllerIOS(id, "setStyle", params);
-      },
-      setLeftButton: function () {
-        console.error('setLeftButton is deprecated, see setLeftButtons');
-      },
-      setLeftButtons: function (buttons, animated = false) {
-        var unsubscribe = _processButtons(buttons);
-        RCCManager.NavigationControllerIOS(id, "setButtons", {buttons: buttons, side: "left", animated: animated});
-        return unsubscribe;
-      },
-      setRightButtons: function (buttons, animated = false) {
-        var unsubscribe = _processButtons(buttons);
-        RCCManager.NavigationControllerIOS(id, "setButtons", {buttons: buttons, side: "right", animated: animated});
-        return unsubscribe;
       },
       setNavigatorEventID: function (navigatorEventID) {
         RCCManager.NavigationControllerIOS(id, "setNavigatorEventID", { navigatorEventID });
@@ -233,7 +217,28 @@ var Controllers = {
       }
     };
   },
-
+  
+  ViewControllerIOS: function (id) {
+    return {
+      setLeftButtons: function (buttons, animated = false) {
+        var unsubscribe = _processButtons(buttons);
+        RCCManager.ViewControllerIOS(id, "setButtons", {buttons: buttons, side: "left", animated: animated});
+        return unsubscribe;
+      },
+      setRightButtons: function (buttons, animated = false) {
+        var unsubscribe = _processButtons(buttons);
+        RCCManager.ViewControllerIOS(id, "setButtons", {buttons: buttons, side: "right", animated: animated});
+        return unsubscribe;
+      },
+      setStyle: function (params) {
+        return RCCManager.ViewControllerIOS(id, "setStyle", params);
+      },
+      refresh: function (params) {
+        RCCManager.ViewControllerIOS(id, "refresh", params);
+      },
+    };
+  },
+  
   TabBarControllerIOS: function (id) {
     return {
       setHidden: function (params) {

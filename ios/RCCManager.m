@@ -2,6 +2,7 @@
 #import "RCTBridge.h"
 #import "RCTRedBox.h"
 #import <Foundation/Foundation.h>
+#import "RCCEventEmitter.h"
 
 @interface RCCManager() <RCTBridgeDelegate>
 @property (nonatomic, strong) NSMutableDictionary *modulesRegistry;
@@ -127,6 +128,7 @@
 
   self.bundleURL = bundleURL;
   self.sharedBridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
+  [RCCEventEmitter sharedInstance].bridge = self.sharedBridge;
   
   [self showSplashScreen];
 }
