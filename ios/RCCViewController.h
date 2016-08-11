@@ -5,8 +5,6 @@
 
 @property (nonatomic) NSMutableDictionary *navigatorStyle;
 @property (nonatomic) BOOL navBarHidden;
-@property (strong, nonnull) UIBarButtonItem *backButtonItem;
-@property (nonatomic) BOOL shouldInterceptBackButton;
 
 + (UIViewController*)controllerWithLayout:(NSDictionary *)layout globalProps:(NSDictionary *)globalProps bridge:(RCTBridge *)bridge;
 
@@ -15,6 +13,7 @@
 - (void)setStyleOnAppear;
 - (void)setStyleOnInit;
 - (void)setNavBarVisibilityChange:(BOOL)animated;
+- (void)performAction:(NSString*)performAction actionParams:(NSDictionary*)actionParams bridge:(RCTBridge *)bridge;
 
 @end
 
