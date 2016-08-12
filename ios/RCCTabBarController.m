@@ -2,6 +2,7 @@
 #import "RCCViewController.h"
 #import "RCTConvert.h"
 #import "RCCManager.h"
+#import "UIViewController+NavBarButtons.h"
 
 @implementation RCCTabBarController
 

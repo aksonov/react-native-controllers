@@ -3,7 +3,9 @@
 #import "MMExampleDrawerVisualStateManager.h"
 #import "RCCDrawerHelper.h"
 #import "RCTConvert.h"
-
+#import "RCTRootView.h"
+#import "RCCEventEmitter.h"
+#import "UIViewController+NavBarButtons.h"
 
 #define RCCDRAWERCONTROLLER_ANIMATION_DURATION 0.33f
 
@@ -20,6 +22,7 @@
     self.drawerStyle = props[@"style"];
     if (props[@"id"]){
         self.restorationIdentifier = props[@"id"];
+        self.navigatorID = props[@"id"];
     }
     
     if (props[@"shouldStretchDrawer"]){
@@ -61,10 +64,15 @@
     
     [self setDrawerVisualStateBlock:^(MMDrawerController *drawerController, MMDrawerSide drawerSide, CGFloat percentVisible) {
         MMDrawerControllerDrawerVisualStateBlock block;
+        [[RCCEventEmitter sharedInstance] willTransition:self.navigatorID];
         block = [[MMExampleDrawerVisualStateManager sharedManager] drawerVisualStateBlockForDrawerSide:drawerSide];
         if (block) {
             block(drawerController, drawerSide, percentVisible);
         }
+    }];
+    
+    [self setGestureCompletionBlock:^(MMDrawerController *drawerController, UIGestureRecognizer *gesture) {
+        [[RCCEventEmitter sharedInstance] didTransition:self.navigatorID];
     }];
     
     self.view.backgroundColor = [UIColor clearColor];

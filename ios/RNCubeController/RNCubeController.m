@@ -11,6 +11,7 @@
 #import "RCTConvert.h"
 #import "RCCManager.h"
 #import "ADTransitionController/ADTransitionController.h"
+#import "UIViewController+NavBarButtons.h"
 
 @implementation RNCubeController {
     NSMutableArray<UIViewController *> *_controllers;
@@ -86,6 +87,13 @@
             }
             _currentIndex = newIndex;
         }
+    }
+}
+
+-(void)setOwnStyle:(NSDictionary *)style {
+    [super setOwnStyle:style];
+    for (int i=0;i<[_controllers count];i++){
+        [_controllers[i] setOwnStyle:style];
     }
 }
 @end

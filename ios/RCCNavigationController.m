@@ -55,8 +55,11 @@
     if (!component) {
       NSString *ident = actionParams[@"id"];
       if (!ident) return;
-      if ([[self topViewController].navigatorID isEqualToString:ident]){
-        return;
+      for (int i=0;i<[self.viewControllers count];i++){
+        if ([self.viewControllers[i].navigatorID isEqualToString:ident]){
+          NSLog(@"DOUBLE PUSH, IGNORE: %@", ident);
+          return;
+        }
       }
       for (int i=0;i<[_children count];i++){
         if ([_children[i][@"props"][@"id"] isEqualToString:ident]){
@@ -168,7 +171,5 @@
     });
   return YES;
 }
-
-
 
 @end
