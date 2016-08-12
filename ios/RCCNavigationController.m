@@ -61,12 +61,15 @@
           return;
         }
       }
+      RCCViewController *parent = (RCCViewController*)self.topViewController;
       for (int i=0;i<[_children count];i++){
         if ([_children[i][@"props"][@"id"] isEqualToString:ident]){
           viewController = [RCCViewController controllerWithLayout:_children[i] globalProps:_globalProps bridge:_bridge];
           if ([viewController respondsToSelector:@selector(setProps:)]){
             [viewController setProps:actionParams[@"passProps"]];
           }
+          [viewController setParentStyle:parent.navigatorStyle];
+          [viewController setParentStyle:parent.parentStyle];
           break;
         }
       }
@@ -141,11 +144,12 @@
   }
   
   if ([performAction isEqualToString:@"setStyle"]){
-    RCCViewController *controller = (RCCViewController *)self.topViewController;
-    controller.navigatorStyle = [NSMutableDictionary dictionaryWithDictionary:actionParams];
-    [controller setStyleOnAppear];
+    [self setParentStyle:actionParams];
   }
   
+  if ([performAction isEqualToString:@"refresh"]){
+    [self setProps:actionParams];
+  }
   // toggleNavBar
   if ([performAction isEqualToString:@"setHidden"]) {
     NSNumber *animated = actionParams[@"animated"];

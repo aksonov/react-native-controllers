@@ -63,16 +63,16 @@
       self.tabBar.hidden = true;
     }
   }
-
+  
   NSMutableArray *viewControllers = [NSMutableArray array];
-
+  
   // go over all the tab bar items
   for (NSDictionary *tabItemLayout in children)
   {
     // make sure the layout is valid
     if (![tabItemLayout[@"type"] isEqualToString:@"TabBarControllerIOS.Item"]) continue;
     if (!tabItemLayout[@"props"]) continue;
-
+    
     // get the view controller inside
     if (!tabItemLayout[@"children"]) continue;
     if (![tabItemLayout[@"children"] isKindOfClass:[NSArray class]]) continue;
@@ -80,7 +80,7 @@
     NSDictionary *childLayout = tabItemLayout[@"children"][0];
     UIViewController *viewController = [RCCViewController controllerWithLayout:childLayout globalProps:globalProps bridge:bridge];
     if (!viewController) continue;
-
+    
     // create the tab icon and title
     NSString *title = tabItemLayout[@"props"][@"title"];
     UIImage *iconImage = nil;
@@ -96,7 +96,7 @@
     UIImage *iconImageSelected = nil;
     id selectedIcon = tabItemLayout[@"props"][@"selectedIcon"];
     if (selectedIcon) iconImageSelected = [RCTConvert UIImage:selectedIcon];
-
+    
     viewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:title image:iconImage tag:0];
     viewController.tabBarItem.selectedImage = iconImageSelected;
     
@@ -122,104 +122,113 @@
     {
       viewController.tabBarItem.badgeValue = [NSString stringWithFormat:@"%@", badge];
     }
-
+    
     [viewControllers addObject:viewController];
   }
-
+  
   // replace the tabs
   self.viewControllers = viewControllers;
-
+  [self setParentStyle:tabsStyle];
+  
   return self;
 }
 
 - (void)performAction:(NSString*)performAction actionParams:(NSDictionary*)actionParams bridge:(RCTBridge *)bridge completion:(void (^)(void))completion
 {
-    if ([performAction isEqualToString:@"setBadge"])
+  if ([performAction isEqualToString:@"setBadge"])
+  {
+    UIViewController *viewController = nil;
+    NSNumber *tabIndex = actionParams[@"tabIndex"];
+    if (tabIndex)
     {
-      UIViewController *viewController = nil;
-      NSNumber *tabIndex = actionParams[@"tabIndex"];
-      if (tabIndex)
-      {
-        int i = (int)[tabIndex integerValue];
+      int i = (int)[tabIndex integerValue];
       
-        if ([self.viewControllers count] > i)
-        {
-          viewController = [self.viewControllers objectAtIndex:i];
-        }
-      }
-      NSString *contentId = actionParams[@"contentId"];
-      NSString *contentType = actionParams[@"contentType"];
-      if (contentId && contentType)
+      if ([self.viewControllers count] > i)
       {
-        viewController = [[RCCManager sharedInstance] getControllerWithId:contentId componentType:contentType];
-      }
-      
-      if (viewController)
-      {
-        NSObject *badge = actionParams[@"badge"];
-        
-        if (badge == nil || [badge isEqual:[NSNull null]])
-        {
-          viewController.tabBarItem.badgeValue = nil;
-        }
-        else
-        {
-          viewController.tabBarItem.badgeValue = [NSString stringWithFormat:@"%@", badge];
-        }
+        viewController = [self.viewControllers objectAtIndex:i];
       }
     }
-  
-    if ([performAction isEqualToString:@"switchTo"])
+    NSString *contentId = actionParams[@"contentId"];
+    NSString *contentType = actionParams[@"contentType"];
+    if (contentId && contentType)
     {
-      UIViewController *viewController = nil;
-      NSNumber *tabIndex = actionParams[@"tabIndex"];
-      if (tabIndex)
-      {
-        int i = (int)[tabIndex integerValue];
-      
-        if ([self.viewControllers count] > i)
-        {
-          viewController = [self.viewControllers objectAtIndex:i];
-        }
-      }
-      NSString *contentId = actionParams[@"contentId"];
-      NSString *contentType = actionParams[@"contentType"];
-      if (contentId && contentType)
-      {
-        viewController = [[RCCManager sharedInstance] getControllerWithId:contentId componentType:contentType];
-      }
+      viewController = [[RCCManager sharedInstance] getControllerWithId:contentId componentType:contentType];
+    }
     
-      if (viewController)
+    if (viewController)
+    {
+      NSObject *badge = actionParams[@"badge"];
+      
+      if (badge == nil || [badge isEqual:[NSNull null]])
       {
-        [self setSelectedViewController:viewController];
+        viewController.tabBarItem.badgeValue = nil;
+      }
+      else
+      {
+        viewController.tabBarItem.badgeValue = [NSString stringWithFormat:@"%@", badge];
       }
     }
-
-    if ([performAction isEqualToString:@"setTabBarHidden"])
+  }
+  
+  if ([performAction isEqualToString:@"switchTo"])
+  {
+    UIViewController *viewController = nil;
+    NSNumber *tabIndex = actionParams[@"tabIndex"];
+    if (tabIndex)
     {
-        BOOL hidden = [actionParams[@"hidden"] boolValue];
-        [UIView animateWithDuration: ([actionParams[@"animated"] boolValue] ? 0.45 : 0)
-                              delay: 0
-             usingSpringWithDamping: 0.75
-              initialSpringVelocity: 0
-                            options: (hidden ? UIViewAnimationOptionCurveEaseIn : UIViewAnimationOptionCurveEaseOut)
-                         animations:^()
-         {
-             self.tabBar.transform = hidden ? CGAffineTransformMakeTranslation(0, self.tabBar.frame.size.height) : CGAffineTransformIdentity;
-         }
-                         completion:^(BOOL finished)
-        {
-            if (completion != nil)
-            {
-                completion();
-            }
-        }];
-        return;
+      int i = (int)[tabIndex integerValue];
+      
+      if ([self.viewControllers count] > i)
+      {
+        viewController = [self.viewControllers objectAtIndex:i];
+      }
     }
-    else if (completion != nil)
+    NSString *contentId = actionParams[@"contentId"];
+    NSString *contentType = actionParams[@"contentType"];
+    if (contentId && contentType)
     {
-      completion();
+      viewController = [[RCCManager sharedInstance] getControllerWithId:contentId componentType:contentType];
     }
+    
+    if (viewController)
+    {
+      [self setSelectedViewController:viewController];
+    }
+  }
+  
+  if ([performAction isEqualToString:@"setStyle"]){
+    [self setParentStyle:actionParams];
+  }
+  
+  if ([performAction isEqualToString:@"refresh"]){
+    [self setProps:actionParams];
+  }
+  
+  if ([performAction isEqualToString:@"setTabBarHidden"])
+  {
+    BOOL hidden = [actionParams[@"hidden"] boolValue];
+    [UIView animateWithDuration: ([actionParams[@"animated"] boolValue] ? 0.45 : 0)
+                          delay: 0
+         usingSpringWithDamping: 0.75
+          initialSpringVelocity: 0
+                        options: (hidden ? UIViewAnimationOptionCurveEaseIn : UIViewAnimationOptionCurveEaseOut)
+                     animations:^()
+     {
+       self.tabBar.transform = hidden ? CGAffineTransformMakeTranslation(0, self.tabBar.frame.size.height) : CGAffineTransformIdentity;
+     }
+                     completion:^(BOOL finished)
+     {
+       if (completion != nil)
+       {
+         completion();
+       }
+     }];
+    return;
+  }
+  else if (completion != nil)
+  {
+    completion();
+  }
 }
 
 

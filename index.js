@@ -155,6 +155,9 @@ var Controllers = {
           }
         };
       },
+      refresh: function (params) {
+        RCCManager.NavigationControllerIOS(id, "refresh", params);
+      },
       pop: function (params) {
         RCCManager.NavigationControllerIOS(id, "pop", params);
       },
@@ -203,6 +206,9 @@ var Controllers = {
 
   DrawerControllerIOS: function (id) {
     return {
+      refresh: function (params) {
+        RCCManager.DrawerControllerIOS(id, "refresh", params);
+      },
       open: function (params) {
         return RCCManager.DrawerControllerIOS(id, "open", params);
       },
@@ -213,6 +219,7 @@ var Controllers = {
         return RCCManager.DrawerControllerIOS(id, "toggle", params);
       },
       setStyle: function (params) {
+        _processProperties(params);
         return RCCManager.DrawerControllerIOS(id, "setStyle", params);
       }
     };
@@ -231,6 +238,7 @@ var Controllers = {
         return unsubscribe;
       },
       setStyle: function (params) {
+        _processProperties(params);
         return RCCManager.ViewControllerIOS(id, "setStyle", params);
       },
       refresh: function (params) {
@@ -241,6 +249,13 @@ var Controllers = {
   
   TabBarControllerIOS: function (id) {
     return {
+      refresh: function (params) {
+        RCCManager.TabBarControllerIOS(id, "refresh", params);
+      },
+      setStyle: function (params) {
+        _processProperties(params);
+        return RCCManager.TabBarControllerIOS(id, "setStyle", params);
+      },
       setHidden: function (params) {
         return RCCManager.TabBarControllerIOS(id, "setTabBarHidden", params);
       },
@@ -255,6 +270,13 @@ var Controllers = {
   
   CubeBarControllerIOS: function (id) {
     return {
+      refresh: function (params) {
+        RCCManager.TabBarControllerIOS(id, "refresh", params);
+      },
+      setStyle: function (params) {
+        _processProperties(params);
+        return RCCManager.TabBarControllerIOS(id, "setStyle", params);
+      },
       switchTo: function (params) {
         return RCCManager.CubeBarControllerIOS(id, "switchTo", params);
       }

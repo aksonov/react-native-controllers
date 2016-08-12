@@ -33,6 +33,7 @@
     if ([children count] < 1) return nil;
     UIViewController *centerViewController = [RCCViewController controllerWithLayout:children[0] globalProps:globalProps bridge:bridge];
     
+    
     // left
     UIViewController *leftViewController = nil;
     NSString *componentLeft = props[@"componentLeft"];
@@ -136,9 +137,14 @@
         return;
     }
     
+    if ([performAction isEqualToString:@"refresh"]){
+        [self setProps:actionParams];
+    }
+    
     // setStyle
     if ([performAction isEqualToString:@"setStyle"])
     {
+        [self setParentStyle:actionParams];
         if (actionParams[@"animationType"]) {
             NSString *animationTypeString = actionParams[@"animationType"];
             [self setAnimationTypeWithName:animationTypeString];
@@ -158,6 +164,11 @@
     
     [MMExampleDrawerVisualStateManager sharedManager].leftDrawerAnimationType = animationType;
     [MMExampleDrawerVisualStateManager sharedManager].rightDrawerAnimationType = animationType;
+}
+
+-(void)setParentStyle:(NSDictionary *)parentStyle {
+    [super setParentStyle:parentStyle];
+    [self.centerViewController setParentStyle:parentStyle];
 }
 
 

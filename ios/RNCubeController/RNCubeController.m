@@ -88,12 +88,19 @@
             _currentIndex = newIndex;
         }
     }
+    if ([performAction isEqualToString:@"setStyle"]){
+        [self setParentStyle:actionParams];
+    }
+    
+    if ([performAction isEqualToString:@"refresh"]){
+        [self setProps:actionParams];
+    }
 }
 
--(void)setOwnStyle:(NSDictionary *)style {
-    [super setOwnStyle:style];
+-(void)setParentStyle:(NSDictionary *)style {
+    [super setParentStyle:style];
     for (int i=0;i<[_controllers count];i++){
-        [_controllers[i] setOwnStyle:style];
+        [_controllers[i] setParentStyle:style];
     }
 }
 @end

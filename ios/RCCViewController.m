@@ -55,17 +55,12 @@ const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
   // create according to type
   NSString *type = layout[@"type"];
   if (!type) return nil;
+  UIViewController *topController;
   
   // regular view controller
   if ([type isEqualToString:@"ViewControllerIOS"])
   {
     controller = [[RCCViewController alloc] initWithProps:props children:children globalProps:globalProps bridge:bridge];
-  }
-  
-  // navigation controller
-  if ([type isEqualToString:@"NavigationControllerIOS"])
-  {
-    controller = [[RCCNavigationController alloc] initWithProps:props children:children globalProps:globalProps bridge:bridge];
   }
   
   // tab bar controller
@@ -93,22 +88,31 @@ const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
       controller = [[RCCDrawerController alloc] initWithProps:props children:children globalProps:globalProps bridge:bridge];
     }
   }
+  topController = controller;
+  // navigation controller
+  if ([type isEqualToString:@"NavigationControllerIOS"])
+  {
+    controller = [[RCCNavigationController alloc] initWithProps:props children:children globalProps:globalProps bridge:bridge];
+    topController = [((RCCNavigationController *)controller) topViewController];
+  }
+  
+
   NSString *title = props[@"title"];
   if (title){
-    controller.title = title;
+    topController.title = title;
   }
-  [controller setTitleImage:props[@"titleImage"]];
+  [topController setTitleImage:props[@"titleImage"]];
   
   NSArray *leftButtons = props[@"leftButtons"];
   if (leftButtons)
   {
-    [controller setButtons:leftButtons side:@"left" animated:NO];
+    [topController setButtons:leftButtons side:@"left" animated:NO];
   }
   
   NSArray *rightButtons = props[@"rightButtons"];
   if (rightButtons)
   {
-    [controller setButtons:rightButtons side:@"right" animated:NO];
+    [topController setButtons:rightButtons side:@"right" animated:NO];
   }
   
   
@@ -120,18 +124,18 @@ const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
                                                                 target:nil
                                                                 action:nil];
     
-    controller.navigationItem.backBarButtonItem = backItem;
+    topController.navigationItem.backBarButtonItem = backItem;
   }
   else
   {
-    controller.navigationItem.backBarButtonItem = nil;
+    topController.navigationItem.backBarButtonItem = nil;
   }
   
   NSNumber *backButtonHidden = props[@"backButtonHidden"];
   BOOL backButtonHiddenBool = backButtonHidden ? [backButtonHidden boolValue] : NO;
   if (backButtonHiddenBool)
   {
-    controller.navigationItem.hidesBackButton = YES;
+    topController.navigationItem.hidesBackButton = YES;
   }
   
   
@@ -679,8 +683,31 @@ const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
     return;
   }
   
-  
+  if ([performAction isEqualToString:@"setStyle"]){
+    [self setParentStyle:actionParams];
+  }
 
+}
+
+
+-(void)setParentStyle:(NSDictionary *)parentStyle {
+  [super setParentStyle:parentStyle];
+  NSMutableDictionary *mergedStyle = [NSMutableDictionary dictionaryWithDictionary:parentStyle];
+  
+  // there are a few styles that we don't want to remember from our parent (they should be local)
+  [mergedStyle removeObjectForKey:@"navBarHidden"];
+  [mergedStyle removeObjectForKey:@"statusBarHidden"];
+  [mergedStyle removeObjectForKey:@"navBarHideOnScroll"];
+  [mergedStyle removeObjectForKey:@"drawUnderNavBar"];
+  [mergedStyle removeObjectForKey:@"drawUnderTabBar"];
+  [mergedStyle removeObjectForKey:@"statusBarBlur"];
+  [mergedStyle removeObjectForKey:@"navBarBlur"];
+  [mergedStyle removeObjectForKey:@"navBarTranslucent"];
+  [mergedStyle removeObjectForKey:@"statusBarHideWithNavBar"];
+  
+  [mergedStyle addEntriesFromDictionary:self.navigatorStyle];
+  self.navigatorStyle = mergedStyle;
+  [self setStyleOnAppearForViewController:self];
 }
 
 
