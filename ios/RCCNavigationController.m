@@ -6,6 +6,7 @@
 #import "RCTRootView.h"
 #import "UIBarButtonItem+Badge.h"
 #import "UIViewController+NavBarButtons.h"
+#import <objc/runtime.h>
 
 @interface RCCNavigationController() {
   NSArray *_children;
