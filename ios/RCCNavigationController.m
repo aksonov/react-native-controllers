@@ -48,6 +48,20 @@
 {
   BOOL animated = actionParams[@"animated"] ? [actionParams[@"animated"] boolValue] : YES;
   
+  // setTitle
+  if ([performAction isEqualToString:@"setTitle"])
+  {
+    NSString *title = actionParams[@"title"];
+    if (title) [self topViewController].title = title;
+    return;
+  }
+  
+  if ([performAction isEqualToString:@"setTitleImage"])
+  {
+    [[self topViewController] setTitleImage:actionParams[@"titleImage"]];
+    return;
+  }
+  
   // push
   if ([performAction isEqualToString:@"push"])
   {
@@ -64,6 +78,9 @@
       }
       RCCViewController *parent = (RCCViewController*)self.topViewController;
       for (int i=0;i<[_children count];i++){
+        if ([_children[i] isEqual:[NSNull null]]){
+          continue;
+        }
         if ([_children[i][@"props"][@"id"] isEqualToString:ident]){
           viewController = [RCCViewController controllerWithLayout:_children[i] globalProps:_globalProps bridge:_bridge];
           if ([viewController respondsToSelector:@selector(setProps:)]){
@@ -149,7 +166,7 @@
   }
   
   if ([performAction isEqualToString:@"refresh"]){
-    [self setProps:actionParams];
+    [[self topViewController] setProps:actionParams];
   }
   // toggleNavBar
   if ([performAction isEqualToString:@"setHidden"]) {
