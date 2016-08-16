@@ -705,8 +705,9 @@ const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
   [mergedStyle removeObjectForKey:@"navBarTranslucent"];
   [mergedStyle removeObjectForKey:@"statusBarHideWithNavBar"];
   
-  [mergedStyle addEntriesFromDictionary:self.navigatorStyle];
-  self.navigatorStyle = mergedStyle;
+  NSMutableDictionary *newStyle = [NSMutableDictionary dictionaryWithDictionary:self.navigatorStyle];
+  [newStyle addEntriesFromDictionary:mergedStyle];
+  self.navigatorStyle = newStyle;
   [self setStyleOnAppearForViewController:self];
 }
 

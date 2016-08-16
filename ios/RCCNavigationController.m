@@ -163,6 +163,7 @@
   
   if ([performAction isEqualToString:@"setStyle"]){
     [self setParentStyle:actionParams];
+    [[self topViewController] setParentStyle:actionParams];
   }
   
   if ([performAction isEqualToString:@"refresh"]){
