@@ -12,6 +12,7 @@
   NSArray *_children;
   NSDictionary*_globalProps;
   RCTBridge *_bridge;
+  BOOL popAction;
 }
 
 
@@ -40,6 +41,10 @@
   if (!self) return nil;
   
   self.navigationBar.translucent = NO; // default
+  
+  if (navigatorStyle[@"navBarHidden"]){
+    self.navigationBar.hidden = YES;
+  }
   
   return self;
 }
@@ -122,10 +127,12 @@
     [self pushViewController:viewController animated:animated];
     return;
   }
+  popAction = NO;
   
   // pop
   if ([performAction isEqualToString:@"pop"])
   {
+    popAction = YES;
     [self popViewControllerAnimated:animated];
     return;
   }
@@ -185,13 +192,16 @@
 }
 
 - (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item {
-  RCCViewController* vc = [self topViewController];
+    RCCViewController* vc = [self topViewController];
     dispatch_async(dispatch_get_main_queue(), ^{
+      if (popAction){
       if ([vc respondsToSelector:@selector(onPop)]){
         [vc onPop];
       }
+      }
       [self popViewControllerAnimated:YES];
     });
+  popAction = NO;
   return YES;
 }
 

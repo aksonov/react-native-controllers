@@ -95,6 +95,7 @@ const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
     controller = [[RCCNavigationController alloc] initWithProps:props children:children globalProps:globalProps bridge:bridge];
     topController = [((RCCNavigationController *)controller) topViewController];
   }
+  [controller setParentStyle:props[@"style"]];
   
 
   NSString *title = props[@"title"];
@@ -278,6 +279,19 @@ const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
   {
     viewController.navigationController.navigationBar.barTintColor = nil;
   }
+  NSDictionary *backButtonImage = self.navigatorStyle[@"backButtonImage"];
+  if (backButtonImage)
+  {
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    
+    viewController.navigationItem.backBarButtonItem = backItem;
+    [UINavigationBar appearance].backIndicatorImage = [RCTConvert UIImage:backButtonImage];
+    [UINavigationBar appearance].backIndicatorTransitionMaskImage = [RCTConvert UIImage:backButtonImage];
+  }
+  else
+  {
+    viewController.navigationItem.backBarButtonItem = nil;
+  }
   
   NSString *navBarTextColor = self.navigatorStyle[@"navBarTextColor"];
   NSString *navBarFontFamily = self.navigatorStyle[@"navBarFontFamily"];
@@ -302,6 +316,7 @@ const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
     }
     
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
+//    [[UIBarButtonItem appearance] setTitleTextAttributes:attributes forState:UIControlStateNormal];
   }
   else
   {
