@@ -515,7 +515,7 @@ const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
 
 -(void)setStyleOnDisappear
 {
-  self.navBarHairlineImageView.hidden = NO;
+  //self.navBarHairlineImageView.hidden = NO;
   
   if (self.navigationController != nil && self.navigationController.interactivePopGestureRecognizer != nil && self.originalInteractivePopGestureDelegate != nil)
   {
@@ -700,6 +700,14 @@ const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
   
   if ([performAction isEqualToString:@"setStyle"]){
     [self setParentStyle:actionParams];
+    if (actionParams[@"navBarHidden"]){
+      NSNumber *navBarHidden = actionParams[@"navBarHidden"];
+      BOOL navBarHiddenBool = navBarHidden ? [navBarHidden boolValue] : NO;
+      if (self.navigationController.navigationBarHidden != navBarHiddenBool)
+      {
+        [self.navigationController setNavigationBarHidden:navBarHiddenBool animated:YES];
+      }
+    }
   }
 
 }
@@ -717,6 +725,7 @@ const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
   [mergedStyle removeObjectForKey:@"drawUnderTabBar"];
   [mergedStyle removeObjectForKey:@"statusBarBlur"];
   [mergedStyle removeObjectForKey:@"navBarBlur"];
+  [mergedStyle removeObjectForKey:@"navBarTranslucent"];
   [mergedStyle removeObjectForKey:@"navBarTranslucent"];
   [mergedStyle removeObjectForKey:@"statusBarHideWithNavBar"];
   

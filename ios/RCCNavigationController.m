@@ -7,6 +7,7 @@
 #import "UIBarButtonItem+Badge.h"
 #import "UIViewController+NavBarButtons.h"
 #import <objc/runtime.h>
+#import "UINavigationBar+PassTouches.h"
 
 @interface RCCNavigationController() {
   NSArray *_children;
@@ -42,8 +43,10 @@
   
   self.navigationBar.translucent = NO; // default
   
-  if (navigatorStyle[@"navBarHidden"]){
+  if ([navigatorStyle[@"navBarHidden"] boolValue]){
     self.navigationBar.hidden = YES;
+  } else {
+    self.navigationBar.hidden = NO;
   }
   
   return self;

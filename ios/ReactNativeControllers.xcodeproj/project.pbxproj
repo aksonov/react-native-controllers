@@ -38,6 +38,7 @@
 		87B2A15B1D5372B4001AAE68 /* ADZoomTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B2A13F1D5372B4001AAE68 /* ADZoomTransition.m */; };
 		87B2A15C1D5372B4001AAE68 /* UIViewController+ADTransitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B2A1411D5372B4001AAE68 /* UIViewController+ADTransitionController.m */; };
 		87B2A15D1D5372B4001AAE68 /* RNCubeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B2A1431D5372B4001AAE68 /* RNCubeController.m */; };
+		87E94A241D65B78600B26FD6 /* UINavigationBar+PassTouches.m in Sources */ = {isa = PBXBuildFile; fileRef = 87E94A231D65B78600B26FD6 /* UINavigationBar+PassTouches.m */; };
 		CC84A19E1C1A0C4E00B3A6A2 /* RCCManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CC84A1941C1A0C4E00B3A6A2 /* RCCManager.m */; };
 		CC84A19F1C1A0C4E00B3A6A2 /* RCCManagerModule.m in Sources */ = {isa = PBXBuildFile; fileRef = CC84A1961C1A0C4E00B3A6A2 /* RCCManagerModule.m */; };
 		CC84A1A01C1A0C4E00B3A6A2 /* RCCNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC84A1981C1A0C4E00B3A6A2 /* RCCNavigationController.m */; };
@@ -140,6 +141,8 @@
 		87B2A1411D5372B4001AAE68 /* UIViewController+ADTransitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ADTransitionController.m"; sourceTree = "<group>"; };
 		87B2A1421D5372B4001AAE68 /* RNCubeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNCubeController.h; path = RNCubeController/RNCubeController.h; sourceTree = "<group>"; };
 		87B2A1431D5372B4001AAE68 /* RNCubeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNCubeController.m; path = RNCubeController/RNCubeController.m; sourceTree = "<group>"; };
+		87E94A221D65B78600B26FD6 /* UINavigationBar+PassTouches.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+PassTouches.h"; sourceTree = "<group>"; };
+		87E94A231D65B78600B26FD6 /* UINavigationBar+PassTouches.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+PassTouches.m"; sourceTree = "<group>"; };
 		CC84A1931C1A0C4E00B3A6A2 /* RCCManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCCManager.h; sourceTree = "<group>"; };
 		CC84A1941C1A0C4E00B3A6A2 /* RCCManager.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = RCCManager.m; sourceTree = "<group>"; tabWidth = 2; };
 		CC84A1951C1A0C4E00B3A6A2 /* RCCManagerModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCCManagerModule.h; sourceTree = "<group>"; };
@@ -353,6 +356,8 @@
 		D8AFADB41BEE6F3F00A4592D = {
 			isa = PBXGroup;
 			children = (
+				87E94A221D65B78600B26FD6 /* UINavigationBar+PassTouches.h */,
+				87E94A231D65B78600B26FD6 /* UINavigationBar+PassTouches.m */,
 				87264E7F1D5CCA040038D088 /* UIViewController+NavBarButtons.h */,
 				87264E801D5CCA040038D088 /* UIViewController+NavBarButtons.m */,
 				87382E311D59C5EB0024F795 /* UIBarButtonItemBadge */,
@@ -466,6 +471,7 @@
 				CC84A1A01C1A0C4E00B3A6A2 /* RCCNavigationController.m in Sources */,
 				D83514F61D29719A00D53758 /* RCCNotification.m in Sources */,
 				CC84A19F1C1A0C4E00B3A6A2 /* RCCManagerModule.m in Sources */,
+				87E94A241D65B78600B26FD6 /* UINavigationBar+PassTouches.m in Sources */,
 				87B2A1441D5372B4001AAE68 /* ADBackFadeTransition.m in Sources */,
 				87B2A14C1D5372B4001AAE68 /* ADGhostTransition.m in Sources */,
 				D8D779981D04B7180050CFEA /* RCTHelpers.m in Sources */,

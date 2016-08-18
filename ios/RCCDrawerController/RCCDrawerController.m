@@ -65,7 +65,12 @@
     
     [self setDrawerVisualStateBlock:^(MMDrawerController *drawerController, MMDrawerSide drawerSide, CGFloat percentVisible) {
         MMDrawerControllerDrawerVisualStateBlock block;
-        [[RCCEventEmitter sharedInstance] willTransition:self.navigatorID];
+        if (percentVisible == 1.0f){
+            [[RCCEventEmitter sharedInstance] willTransition:self.navigatorID];
+        }
+        if (percentVisible == 0.0f){
+            [[RCCEventEmitter sharedInstance] didTransition:self.navigatorID];
+        }
         block = [[MMExampleDrawerVisualStateManager sharedManager] drawerVisualStateBlockForDrawerSide:drawerSide];
         if (block) {
             block(drawerController, drawerSide, percentVisible);
