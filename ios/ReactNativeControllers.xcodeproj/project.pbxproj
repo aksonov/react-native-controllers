@@ -10,7 +10,6 @@
 		260804DB1CE0D9D20094DBA1 /* RCCToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 260804DA1CE0D9D20094DBA1 /* RCCToolBar.m */; };
 		87264E811D5CCA040038D088 /* UIViewController+NavBarButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 87264E801D5CCA040038D088 /* UIViewController+NavBarButtons.m */; };
 		87382E361D59C5EB0024F795 /* UIBarButtonItem+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 87382E331D59C5EB0024F795 /* UIBarButtonItem+Badge.m */; };
-		87382E371D59C5EB0024F795 /* UIButton+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 87382E351D59C5EB0024F795 /* UIButton+Badge.m */; };
 		87382E3A1D5B600C0024F795 /* RCCEventEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 87382E391D5B600C0024F795 /* RCCEventEmitter.m */; };
 		87B2A1441D5372B4001AAE68 /* ADBackFadeTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B2A1111D5372B4001AAE68 /* ADBackFadeTransition.m */; };
 		87B2A1451D5372B4001AAE68 /* ADCarrouselTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B2A1131D5372B4001AAE68 /* ADCarrouselTransition.m */; };
@@ -38,6 +37,8 @@
 		87B2A15B1D5372B4001AAE68 /* ADZoomTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B2A13F1D5372B4001AAE68 /* ADZoomTransition.m */; };
 		87B2A15C1D5372B4001AAE68 /* UIViewController+ADTransitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B2A1411D5372B4001AAE68 /* UIViewController+ADTransitionController.m */; };
 		87B2A15D1D5372B4001AAE68 /* RNCubeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B2A1431D5372B4001AAE68 /* RNCubeController.m */; };
+		87D2DE221D675C1200F44EDA /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D2DE211D675C1200F44EDA /* FBKVOController.m */; };
+		87D2DE261D675C9900F44EDA /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D2DE251D675C9900F44EDA /* NSObject+FBKVOController.m */; };
 		87E94A241D65B78600B26FD6 /* UINavigationBar+PassTouches.m in Sources */ = {isa = PBXBuildFile; fileRef = 87E94A231D65B78600B26FD6 /* UINavigationBar+PassTouches.m */; };
 		CC84A19E1C1A0C4E00B3A6A2 /* RCCManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CC84A1941C1A0C4E00B3A6A2 /* RCCManager.m */; };
 		CC84A19F1C1A0C4E00B3A6A2 /* RCCManagerModule.m in Sources */ = {isa = PBXBuildFile; fileRef = CC84A1961C1A0C4E00B3A6A2 /* RCCManagerModule.m */; };
@@ -85,8 +86,6 @@
 		87264E801D5CCA040038D088 /* UIViewController+NavBarButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+NavBarButtons.m"; sourceTree = "<group>"; };
 		87382E321D59C5EB0024F795 /* UIBarButtonItem+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Badge.h"; sourceTree = "<group>"; };
 		87382E331D59C5EB0024F795 /* UIBarButtonItem+Badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Badge.m"; sourceTree = "<group>"; };
-		87382E341D59C5EB0024F795 /* UIButton+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Badge.h"; sourceTree = "<group>"; };
-		87382E351D59C5EB0024F795 /* UIButton+Badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Badge.m"; sourceTree = "<group>"; };
 		87382E381D5B600C0024F795 /* RCCEventEmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCCEventEmitter.h; sourceTree = "<group>"; };
 		87382E391D5B600C0024F795 /* RCCEventEmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCCEventEmitter.m; sourceTree = "<group>"; };
 		87B2A1101D5372B4001AAE68 /* ADBackFadeTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADBackFadeTransition.h; sourceTree = "<group>"; };
@@ -141,6 +140,11 @@
 		87B2A1411D5372B4001AAE68 /* UIViewController+ADTransitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ADTransitionController.m"; sourceTree = "<group>"; };
 		87B2A1421D5372B4001AAE68 /* RNCubeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNCubeController.h; path = RNCubeController/RNCubeController.h; sourceTree = "<group>"; };
 		87B2A1431D5372B4001AAE68 /* RNCubeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNCubeController.m; path = RNCubeController/RNCubeController.m; sourceTree = "<group>"; };
+		87D2DE201D675C1200F44EDA /* FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBKVOController.h; sourceTree = "<group>"; };
+		87D2DE211D675C1200F44EDA /* FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBKVOController.m; sourceTree = "<group>"; };
+		87D2DE231D675C9900F44EDA /* KVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVOController.h; sourceTree = "<group>"; };
+		87D2DE241D675C9900F44EDA /* NSObject+FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+FBKVOController.h"; sourceTree = "<group>"; };
+		87D2DE251D675C9900F44EDA /* NSObject+FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+FBKVOController.m"; sourceTree = "<group>"; };
 		87E94A221D65B78600B26FD6 /* UINavigationBar+PassTouches.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+PassTouches.h"; sourceTree = "<group>"; };
 		87E94A231D65B78600B26FD6 /* UINavigationBar+PassTouches.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+PassTouches.m"; sourceTree = "<group>"; };
 		CC84A1931C1A0C4E00B3A6A2 /* RCCManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCCManager.h; sourceTree = "<group>"; };
@@ -222,10 +226,13 @@
 		87382E311D59C5EB0024F795 /* UIBarButtonItemBadge */ = {
 			isa = PBXGroup;
 			children = (
+				87D2DE231D675C9900F44EDA /* KVOController.h */,
+				87D2DE241D675C9900F44EDA /* NSObject+FBKVOController.h */,
+				87D2DE251D675C9900F44EDA /* NSObject+FBKVOController.m */,
 				87382E321D59C5EB0024F795 /* UIBarButtonItem+Badge.h */,
 				87382E331D59C5EB0024F795 /* UIBarButtonItem+Badge.m */,
-				87382E341D59C5EB0024F795 /* UIButton+Badge.h */,
-				87382E351D59C5EB0024F795 /* UIButton+Badge.m */,
+				87D2DE201D675C1200F44EDA /* FBKVOController.h */,
+				87D2DE211D675C1200F44EDA /* FBKVOController.m */,
 			);
 			path = UIBarButtonItemBadge;
 			sourceTree = "<group>";
@@ -500,6 +507,7 @@
 				D85082E61CBCF54200FDB961 /* SidebarFeedlyAnimation.m in Sources */,
 				CC84A1A11C1A0C4E00B3A6A2 /* RCCTabBarController.m in Sources */,
 				D85082E71CBCF54200FDB961 /* SidebarFlipboardAnimation.m in Sources */,
+				87D2DE221D675C1200F44EDA /* FBKVOController.m in Sources */,
 				D85082E51CBCF54200FDB961 /* SidebarFacebookAnimation.m in Sources */,
 				CC84A1A21C1A0C4E00B3A6A2 /* RCCViewController.m in Sources */,
 				D85082E91CBCF54200FDB961 /* SidebarWunderlistAnimation.m in Sources */,
@@ -508,13 +516,13 @@
 				87B2A15C1D5372B4001AAE68 /* UIViewController+ADTransitionController.m in Sources */,
 				D85082E11CBCF54200FDB961 /* RCCDrawerHelper.m in Sources */,
 				D85082FE1CBCF8A800FDB961 /* MMDrawerVisualState.m in Sources */,
-				87382E371D59C5EB0024F795 /* UIButton+Badge.m in Sources */,
 				D85082FD1CBCF8A800FDB961 /* MMDrawerController.m in Sources */,
 				87B2A1461D5372B4001AAE68 /* ADCrossTransition.m in Sources */,
 				87B2A14B1D5372B4001AAE68 /* ADFoldTransition.m in Sources */,
 				87382E3A1D5B600C0024F795 /* RCCEventEmitter.m in Sources */,
 				D85082E41CBCF54200FDB961 /* SidebarAnimation.m in Sources */,
 				87B2A1531D5372B4001AAE68 /* ADSwapTransition.m in Sources */,
+				87D2DE261D675C9900F44EDA /* NSObject+FBKVOController.m in Sources */,
 				D68557921D54177A004D1904 /* UIViewController+RCCBackButtonHandler.m in Sources */,
 				D8E11C571CBD1F670018B644 /* RCCDrawerController.m in Sources */,
 				87B2A1541D5372B4001AAE68 /* ADSwipeFadeTransition.m in Sources */,

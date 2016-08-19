@@ -204,6 +204,17 @@
     [self setProps:actionParams];
   }
   
+  // setButtons
+  if ([performAction isEqualToString:@"setButtons"])
+  {
+    NSArray *buttons = actionParams[@"buttons"];
+    BOOL animated = actionParams[@"animated"] ? [actionParams[@"animated"] boolValue] : YES;
+    NSString *side = actionParams[@"side"] ? actionParams[@"side"] : @"left";
+    
+    [self setButtons:buttons side:side animated:animated];
+    return;
+  }
+  
   if ([performAction isEqualToString:@"setTabBarHidden"])
   {
     BOOL hidden = [actionParams[@"hidden"] boolValue];

@@ -197,7 +197,8 @@
 - (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item {
     RCCViewController* vc = [self topViewController];
     dispatch_async(dispatch_get_main_queue(), ^{
-      if (popAction){
+      if (!popAction)
+      {
       if ([vc respondsToSelector:@selector(onPop)]){
         [vc onPop];
       }

@@ -96,6 +96,7 @@ NSString const *STYLE_KEY = @"RCCViewController.STYLE_KEY";
         NSString *badgeValue = button[@"badgeValue"];
         if (badgeValue){
             barButtonItem.badgeValue = badgeValue;
+            self.navigationItem.rightBarButtonItem.badgeValue = badgeValue;
         }
         NSString *badgeColor = button[@"badgeBGColor"];
         if (badgeColor){

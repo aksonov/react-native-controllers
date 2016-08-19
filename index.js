@@ -49,7 +49,7 @@ function _processButtons(buttons) {
   }
   return function () {
     for (var i = 0 ; i < unsubscribes.length ; i++) {
-      if (unsubscribes[i]) { unsubscribes[i](); }
+      if (unsubscribes[i]) { unsubscribes[i].remove(); }
     }
   };
 }
@@ -198,6 +198,16 @@ var Controllers = {
       setNavigatorEventID: function (navigatorEventID) {
         RCCManager.NavigationControllerIOS(id, "setNavigatorEventID", { navigatorEventID });
       },
+      setLeftButtons: function (buttons, animated = false) {
+        var unsubscribe = _processButtons(buttons);
+        RCCManager.NavigationControllerIOS(id, "setButtons", {buttons: buttons, side: "left", animated: animated});
+        return unsubscribe;
+      },
+      setRightButtons: function (buttons, animated = false) {
+        var unsubscribe = _processButtons(buttons);
+        RCCManager.NavigationControllerIOS(id, "setButtons", {buttons: buttons, side: "right", animated: animated});
+        return unsubscribe;
+      },
       setHidden: function(params = {}) {
         RCCManager.NavigationControllerIOS(id, "setHidden", params);
       }
@@ -206,6 +216,16 @@ var Controllers = {
 
   DrawerControllerIOS: function (id) {
     return {
+      setLeftButtons: function (buttons, animated = false) {
+        var unsubscribe = _processButtons(buttons);
+        RCCManager.DrawerControllerIOS(id, "setButtons", {buttons: buttons, side: "left", animated: animated});
+        return unsubscribe;
+      },
+      setRightButtons: function (buttons, animated = false) {
+        var unsubscribe = _processButtons(buttons);
+        RCCManager.DrawerControllerIOS(id, "setButtons", {buttons: buttons, side: "right", animated: animated});
+        return unsubscribe;
+      },
       refresh: function (params) {
         RCCManager.DrawerControllerIOS(id, "refresh", params);
       },
@@ -262,6 +282,16 @@ var Controllers = {
       setBadge: function (params) {
         return RCCManager.TabBarControllerIOS(id, "setBadge", params);
       },
+      setLeftButtons: function (buttons, animated = false) {
+        var unsubscribe = _processButtons(buttons);
+        RCCManager.TabBarControllerIOS(id, "setButtons", {buttons: buttons, side: "left", animated: animated});
+        return unsubscribe;
+      },
+      setRightButtons: function (buttons, animated = false) {
+        var unsubscribe = _processButtons(buttons);
+        RCCManager.TabBarControllerIOS(id, "setButtons", {buttons: buttons, side: "right", animated: animated});
+        return unsubscribe;
+      },
       switchTo: function (params) {
         return RCCManager.TabBarControllerIOS(id, "switchTo", params);
       }
@@ -270,12 +300,22 @@ var Controllers = {
   
   CubeBarControllerIOS: function (id) {
     return {
+      setLeftButtons: function (buttons, animated = false) {
+        var unsubscribe = _processButtons(buttons);
+        RCCManager.CubeBarControllerIOS(id, "setButtons", {buttons: buttons, side: "left", animated: animated});
+        return unsubscribe;
+      },
+      setRightButtons: function (buttons, animated = false) {
+        var unsubscribe = _processButtons(buttons);
+        RCCManager.CubeBarControllerIOS(id, "setButtons", {buttons: buttons, side: "right", animated: animated});
+        return unsubscribe;
+      },
       refresh: function (params) {
-        RCCManager.TabBarControllerIOS(id, "refresh", params);
+        RCCManager.CubeBarControllerIOS(id, "refresh", params);
       },
       setStyle: function (params) {
         _processProperties(params);
-        return RCCManager.TabBarControllerIOS(id, "setStyle", params);
+        return RCCManager.CubeBarControllerIOS(id, "setStyle", params);
       },
       switchTo: function (params) {
         return RCCManager.CubeBarControllerIOS(id, "switchTo", params);

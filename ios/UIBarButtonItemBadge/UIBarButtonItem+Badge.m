@@ -70,7 +70,7 @@ NSString const *UIBarButtonItem_badgeValueKey = @"UIBarButtonItem_badgeValueKey"
         self.badge.hidden = NO;
         [self updateBadgeValueAnimated:YES];
     }
-
+    
 }
 
 - (CGSize) badgeExpectedSize
@@ -88,7 +88,7 @@ NSString const *UIBarButtonItem_badgeValueKey = @"UIBarButtonItem_badgeValueKey"
 
 - (void)updateBadgeFrame
 {
-
+    
     CGSize expectedLabelSize = [self badgeExpectedSize];
     
     // Make sure that for small value, the badge will be big enough
