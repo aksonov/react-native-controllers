@@ -96,7 +96,6 @@ NSString const *STYLE_KEY = @"RCCViewController.STYLE_KEY";
         NSString *badgeValue = button[@"badgeValue"];
         if (badgeValue){
             barButtonItem.badgeValue = badgeValue;
-            self.navigationItem.rightBarButtonItem.badgeValue = badgeValue;
         }
         NSString *badgeColor = button[@"badgeBGColor"];
         if (badgeColor){
@@ -106,10 +105,23 @@ NSString const *STYLE_KEY = @"RCCViewController.STYLE_KEY";
         if (badgeMinSize){
             barButtonItem.badgeMinSize = badgeMinSize;
         }
-        float badgeFontSize = [button[@"badgeFontSize"] floatValue] || 13.0f;
+        float badgeOriginX = [button[@"badgeOriginX"] floatValue];
+        if (badgeOriginX) {
+            barButtonItem.badgeOriginX = badgeOriginX;
+        }
+        float badgeOriginY = [button[@"badgeOriginY"] floatValue];
+        if (badgeOriginY) {
+            barButtonItem.badgeOriginY = badgeOriginY;
+        }
+        float badgeFontSize = button[@"badgeFontSize"] ? [button[@"badgeFontSize"] floatValue] : 13.0f;
         NSString *badgeFontFamily = button[@"badgeFontFamily"];
         if (badgeFontFamily){
             barButtonItem.badgeFont = [UIFont fontWithName:badgeFontFamily size:badgeFontSize];
+        }
+        
+        NSString *badgeTextColor = button[@"badgeTextColor"];
+        if (badgeTextColor){
+            barButtonItem.badgeTextColor = [RCTConvert UIColor:button[@"badgeTextColor"]];
         }
         
         NSString *navBarTextColor = button[@"textColor"];
