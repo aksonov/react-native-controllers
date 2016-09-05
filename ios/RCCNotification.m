@@ -352,7 +352,9 @@
 -(void)dismissWithCompletion:(void (^)(void))completion
 {
     [self killAutoDismissTimer];
-    [self.reactView cancelTouches];
+    if ([self.reactView respondsToSelector:@selector(cancelTouches)]){
+        [self.reactView cancelTouches];
+    }
     
     if ([[self.params valueForKeyPath:@"animation.animated"] boolValue])
     {

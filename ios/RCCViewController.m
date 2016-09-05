@@ -230,7 +230,9 @@ const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
 
 -(void)onCancelReactTouches
 {
-  [(RCTRootView*)self.view cancelTouches];
+  if ([self.view respondsToSelector:@selector(cancelTouches)]){
+    [(RCTRootView*)self.view cancelTouches];
+  }
 }
 
 - (void)viewWillAppear:(BOOL)animated
