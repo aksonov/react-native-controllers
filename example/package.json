@@ -8,6 +8,6 @@
   "dependencies": {
     "react-native": "0.31.0",
     "react": "15.2.1",
-    "react-native-controllers": "file:../"
+    "react-native-ios-controllers": "file:../"
   }
 }

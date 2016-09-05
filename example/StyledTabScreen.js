@@ -9,7 +9,7 @@ var {
   View
 } = ReactNative;
 
-var Controllers = require('react-native-controllers');
+var Controllers = require('react-native-ios-controllers');
 var {
   Modal,
   ControllerRegistry

@@ -22,7 +22,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
-		CC8006F21C7FBB6B00A9E411 /* libReactNativeControllers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC8006F11C7FBB3E00A9E411 /* libReactNativeControllers.a */; };
+		874DDD941D7D75B00047A28E /* libReactNativeControllers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 874DDD931D7D75880047A28E /* libReactNativeControllers.a */; };
 		D82DBFAB1C886D4200E0E3BC /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 /* End PBXBuildFile section */
 
@@ -104,9 +104,9 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
-		CC8006F01C7FBB3E00A9E411 /* PBXContainerItemProxy */ = {
+		874DDD921D7D75880047A28E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = CC8006E21C7FBB3E00A9E411 /* ReactNativeControllers.xcodeproj */;
+			containerPortal = 874DDD8E1D7D75880047A28E /* ReactNativeControllers.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D8AFADBD1BEE6F3F00A4592D;
 			remoteInfo = ReactNativeControllers;
@@ -135,7 +135,7 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
-		CC8006E21C7FBB3E00A9E411 /* ReactNativeControllers.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeControllers.xcodeproj; path = "../node_modules/react-native-controllers/ios/ReactNativeControllers.xcodeproj"; sourceTree = "<group>"; };
+		874DDD8E1D7D75880047A28E /* ReactNativeControllers.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeControllers.xcodeproj; path = "../node_modules/react-native-ios-controllers/ios/ReactNativeControllers.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,7 +151,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC8006F21C7FBB6B00A9E411 /* libReactNativeControllers.a in Frameworks */,
+				874DDD941D7D75B00047A28E /* libReactNativeControllers.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
@@ -274,7 +274,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				CC8006E21C7FBB3E00A9E411 /* ReactNativeControllers.xcodeproj */,
+				874DDD8E1D7D75880047A28E /* ReactNativeControllers.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
 				00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */,
@@ -318,10 +318,10 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		CC8006E31C7FBB3E00A9E411 /* Products */ = {
+		874DDD8F1D7D75880047A28E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CC8006F11C7FBB3E00A9E411 /* libReactNativeControllers.a */,
+				874DDD931D7D75880047A28E /* libReactNativeControllers.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -433,8 +433,8 @@
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
 				{
-					ProductGroup = CC8006E31C7FBB3E00A9E411 /* Products */;
-					ProjectRef = CC8006E21C7FBB3E00A9E411 /* ReactNativeControllers.xcodeproj */;
+					ProductGroup = 874DDD8F1D7D75880047A28E /* Products */;
+					ProjectRef = 874DDD8E1D7D75880047A28E /* ReactNativeControllers.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -516,11 +516,11 @@
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		CC8006F11C7FBB3E00A9E411 /* libReactNativeControllers.a */ = {
+		874DDD931D7D75880047A28E /* libReactNativeControllers.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libReactNativeControllers.a;
-			remoteRef = CC8006F01C7FBB3E00A9E411 /* PBXContainerItemProxy */;
+			remoteRef = 874DDD921D7D75880047A28E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -648,7 +648,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
-					"$(SRCROOT)/../node_modules/react-native-controllers/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-ios-controllers/ios/**",
 				);
 				INFOPLIST_FILE = ControllersExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -669,7 +669,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
-					"$(SRCROOT)/../node_modules/react-native-controllers/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-ios-controllers/ios/**",
 				);
 				INFOPLIST_FILE = ControllersExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

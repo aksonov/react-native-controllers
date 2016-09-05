@@ -16,7 +16,7 @@ var {
 	TextInput
 } = ReactNative;
 
-var Controllers = require('react-native-controllers');
+var Controllers = require('react-native-ios-controllers');
 const {NavigationToolBarIOS} = Controllers;
 var {height, width} = Dimensions.get('window');
 

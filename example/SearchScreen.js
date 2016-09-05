@@ -11,7 +11,7 @@ var {
   TouchableOpacity
 } = ReactNative;
 
-var Controllers = require('react-native-controllers');
+var Controllers = require('react-native-ios-controllers');
 var { Modal } = Controllers;
 
 var badgeCounter = 1;
