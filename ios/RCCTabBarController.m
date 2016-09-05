@@ -98,6 +98,7 @@
     if (selectedIcon) iconImageSelected = [RCTConvert UIImage:selectedIcon];
     
     viewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:title image:iconImage tag:0];
+    viewController.tabBarItem.accessibilityIdentifier = tabItemLayout[@"props"][@"testID"];
     viewController.tabBarItem.selectedImage = iconImageSelected;
     
     if (buttonColor)

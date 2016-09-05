@@ -6,6 +6,7 @@
 #import "RCTRootView.h"
 #import "RCCEventEmitter.h"
 #import "UIViewController+NavBarButtons.h"
+#import "RCCManagerModule.h"
 
 #define RCCDRAWERCONTROLLER_ANIMATION_DURATION 0.33f
 
@@ -81,6 +82,10 @@
         [[RCCEventEmitter sharedInstance] didTransition:self.navigatorID];
     }];
     
+    [self setGestureStartBlock:^(MMDrawerController *drawerController, UIGestureRecognizer *gesture) {
+        [RCCManagerModule cancelAllRCCViewControllerReactTouches];
+     }];
+                                               
     self.view.backgroundColor = [UIColor clearColor];
     
     if (!self) return nil;

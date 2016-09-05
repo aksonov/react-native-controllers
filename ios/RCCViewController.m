@@ -13,6 +13,8 @@
 #import "RCCEventEmitter.h"
 #import "UIViewController+NavBarButtons.h"
 
+NSString* const RCCViewControllerCancelReactTouchesNotification = @"RCCViewControllerCancelReactTouchesNotification";
+
 const NSInteger BLUR_STATUS_TAG = 78264801;
 const NSInteger BLUR_NAVBAR_TAG = 78264802;
 const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
@@ -206,6 +208,7 @@ const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
   [self setStyleOnInit];
   
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onRNReload) name:RCTReloadNotification object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onCancelReactTouches) name:RCCViewControllerCancelReactTouchesNotification object:nil];
   
   // In order to support 3rd party native ViewControllers, we support passing a class name as a prop mamed `ExternalNativeScreenClass`
   // In this case, we create an instance and add it as a child ViewController which preserves the VC lifecycle.
@@ -223,6 +226,11 @@ const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
 {
   [[NSNotificationCenter defaultCenter] removeObserver:self.view];
   self.view = nil;
+}
+
+-(void)onCancelReactTouches
+{
+  [(RCTRootView*)self.view cancelTouches];
 }
 
 - (void)viewWillAppear:(BOOL)animated
