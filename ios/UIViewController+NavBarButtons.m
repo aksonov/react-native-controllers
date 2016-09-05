@@ -200,6 +200,10 @@ NSString const *STYLE_KEY = @"RCCViewController.STYLE_KEY";
     }
 }
 
+-(BOOL)shouldPop {
+    return ![RCCEventEmitter sharedInstance].isObserving;
+}
+
 -(void)onPop
 {
     [[RCCEventEmitter sharedInstance] willPop:self.navigatorID];

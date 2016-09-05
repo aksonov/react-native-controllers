@@ -12,6 +12,9 @@
 @interface RCCEventEmitter : RCTEventEmitter<RCTBridgeModule>
 
 + (instancetype)sharedInstance;
+-(void)startObserving;
+-(void)stopObserving;
+@property (nonatomic) BOOL isObserving;
 - (void)didFocus:(NSString *)callbackId;
 - (void)willFocus:(NSString *)callbackId;
 - (void)willPop:(NSString *)callbackId;

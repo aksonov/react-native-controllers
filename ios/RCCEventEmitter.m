@@ -27,6 +27,14 @@ RCT_EXPORT_MODULE();
     return sharedInstance;
 }
 
+-(void)startObserving {
+    _isObserving = YES;
+}
+
+-(void)stopObserving {
+    _isObserving = NO;
+}
+
 - (NSArray<NSString *> *)supportedEvents {
     return @[@"DidFocus",@"WillFocus", @"NavBarButtonPress",@"WillPop", @"WillTransition", @"DidTransition"];
 }

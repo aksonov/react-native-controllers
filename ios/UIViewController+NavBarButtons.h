@@ -14,6 +14,7 @@
 -(void)setButtons:(NSArray*)buttons side:(NSString*)side animated:(BOOL)animated;
 -(void)setTitleImage:(id)titleImageData;
 -(void)onPop;
+-(BOOL)shouldPop;
 -(void)setProps:(NSDictionary *)props;
 -(void)onButtonPress:(UIBarButtonItem*)barButtonItem;
 @end

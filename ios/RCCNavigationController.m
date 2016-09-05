@@ -56,6 +56,17 @@
 {
   BOOL animated = actionParams[@"animated"] ? [actionParams[@"animated"] boolValue] : YES;
   
+  // setButtons
+  if ([performAction isEqualToString:@"setButtons"])
+  {
+    NSArray *buttons = actionParams[@"buttons"];
+    BOOL animated = actionParams[@"animated"] ? [actionParams[@"animated"] boolValue] : YES;
+    NSString *side = actionParams[@"side"] ? actionParams[@"side"] : @"left";
+    
+    [[self topViewController] setButtons:buttons side:side animated:animated];
+    return;
+  }
+  
   // setTitle
   if ([performAction isEqualToString:@"setTitle"])
   {
@@ -198,8 +209,10 @@
     RCCViewController* vc = [self topViewController];
     dispatch_async(dispatch_get_main_queue(), ^{
       if (!popAction) {
-        if ([vc respondsToSelector:@selector(onPop)]){
-          [vc onPop];
+        if ([vc shouldPop]){
+            [self popViewControllerAnimated:YES];
+        } else {
+            [vc onPop];
         }
       } else {
         [self popViewControllerAnimated:YES];
