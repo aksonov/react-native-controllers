@@ -26,8 +26,10 @@
   _bridge = bridge;
   NSString *component = props[@"component"];
   NSDictionary *passProps = props[@"passProps"];
-  NSDictionary *navigatorStyle = props[@"style"];
-  
+  NSMutableDictionary *navigatorStyle = [NSMutableDictionary dictionaryWithDictionary:props[@"style"]];
+  if (globalProps[@"style"]){
+    [navigatorStyle addEntriesFromDictionary:globalProps[@"style"]];
+  }
   RCCViewController *viewController;
   
   if (!component) {
