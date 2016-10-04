@@ -334,7 +334,10 @@ var Controllers = {
     },
     showController: function(appKey, animationType = 'slide-up', passProps = {}) {
       var controller = _controllerRegistry[appKey];
-      if (controller === undefined) return;
+      if (controller === undefined) {
+        console.error("No controller defined for key", appKey);
+        return;
+      }
       var layout = controller.render();
       _validateDrawerProps(layout);
       RCCManager.showController(layout, animationType, passProps);
