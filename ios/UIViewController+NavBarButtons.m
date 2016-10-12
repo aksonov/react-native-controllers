@@ -26,6 +26,7 @@ NSString const *CALLBACK_ASSOCIATED_KEY = @"RCCNavigationController.CALLBACK_ASS
 NSString const *CALLBACK_ASSOCIATED_ID = @"RCCNavigationController.CALLBACK_ASSOCIATED_ID";
 NSString const *NAVIGATOR_ID = @"RCCNavigationController.NAVIGATOR_ID";
 NSString const *STYLE_KEY = @"RCCViewController.STYLE_KEY";
+NSString const *POP_ACTION_KEY = @"RCCViewController.POP_ACTION_KEY";
 
 @implementation UIViewController(NavBarButtons)
 
@@ -225,7 +226,9 @@ NSString const *STYLE_KEY = @"RCCViewController.STYLE_KEY";
         self.navigationItem.leftBarButtonItem.enabled = YES;
     }
     if ([view respondsToSelector:@selector(appProperties)]){
-        view.appProperties = props;
+        NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:view.appProperties];
+        [dict addEntriesFromDictionary:props];
+        view.appProperties = dict;
     }
 }
 
@@ -248,6 +251,14 @@ NSString const *STYLE_KEY = @"RCCViewController.STYLE_KEY";
 
 -(void)setNavigatorID:(NSString *)ident {
     objc_setAssociatedObject(self, &NAVIGATOR_ID, ident, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+-(BOOL)popAction {
+    return [objc_getAssociatedObject(self, &POP_ACTION_KEY) boolValue];
+}
+
+-(void)setPopAction:(BOOL)popAction {
+    objc_setAssociatedObject(self, &POP_ACTION_KEY, [NSNumber numberWithBool:popAction], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 -(void)setParentStyle:(NSDictionary *)style {

@@ -10,6 +10,7 @@
 
 @interface UIViewController(NavBarButtons)
 @property (copy, nonatomic) NSString *navigatorID;
+@property (nonatomic) BOOL popAction;
 @property (copy, nonatomic) NSDictionary *parentStyle;
 -(void)setButtons:(NSArray*)buttons side:(NSString*)side animated:(BOOL)animated;
 -(void)setTitleImage:(id)titleImageData;

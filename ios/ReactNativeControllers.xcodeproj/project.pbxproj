@@ -11,6 +11,7 @@
 		87264E811D5CCA040038D088 /* UIViewController+NavBarButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 87264E801D5CCA040038D088 /* UIViewController+NavBarButtons.m */; };
 		87382E361D59C5EB0024F795 /* UIBarButtonItem+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 87382E331D59C5EB0024F795 /* UIBarButtonItem+Badge.m */; };
 		87382E3A1D5B600C0024F795 /* RCCEventEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 87382E391D5B600C0024F795 /* RCCEventEmitter.m */; };
+		875EC3D61DA3D60D008224B9 /* RCCTitleViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 875EC3D51DA3D60D008224B9 /* RCCTitleViewHelper.m */; };
 		87B2A1441D5372B4001AAE68 /* ADBackFadeTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B2A1111D5372B4001AAE68 /* ADBackFadeTransition.m */; };
 		87B2A1451D5372B4001AAE68 /* ADCarrouselTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B2A1131D5372B4001AAE68 /* ADCarrouselTransition.m */; };
 		87B2A1461D5372B4001AAE68 /* ADCrossTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B2A1151D5372B4001AAE68 /* ADCrossTransition.m */; };
@@ -88,6 +89,8 @@
 		87382E331D59C5EB0024F795 /* UIBarButtonItem+Badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Badge.m"; sourceTree = "<group>"; };
 		87382E381D5B600C0024F795 /* RCCEventEmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCCEventEmitter.h; sourceTree = "<group>"; };
 		87382E391D5B600C0024F795 /* RCCEventEmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCCEventEmitter.m; sourceTree = "<group>"; };
+		875EC3D41DA3D60D008224B9 /* RCCTitleViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCCTitleViewHelper.h; sourceTree = "<group>"; };
+		875EC3D51DA3D60D008224B9 /* RCCTitleViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCCTitleViewHelper.m; sourceTree = "<group>"; };
 		87B2A1101D5372B4001AAE68 /* ADBackFadeTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADBackFadeTransition.h; sourceTree = "<group>"; };
 		87B2A1111D5372B4001AAE68 /* ADBackFadeTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADBackFadeTransition.m; sourceTree = "<group>"; };
 		87B2A1121D5372B4001AAE68 /* ADCarrouselTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADCarrouselTransition.h; sourceTree = "<group>"; };
@@ -408,6 +411,8 @@
 		D8D779951D04B7180050CFEA /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				875EC3D41DA3D60D008224B9 /* RCCTitleViewHelper.h */,
+				875EC3D51DA3D60D008224B9 /* RCCTitleViewHelper.m */,
 				D8D779961D04B7180050CFEA /* RCTHelpers.h */,
 				D8D779971D04B7180050CFEA /* RCTHelpers.m */,
 			);
@@ -516,6 +521,7 @@
 				87B2A15C1D5372B4001AAE68 /* UIViewController+ADTransitionController.m in Sources */,
 				D85082E11CBCF54200FDB961 /* RCCDrawerHelper.m in Sources */,
 				D85082FE1CBCF8A800FDB961 /* MMDrawerVisualState.m in Sources */,
+				875EC3D61DA3D60D008224B9 /* RCCTitleViewHelper.m in Sources */,
 				D85082FD1CBCF8A800FDB961 /* MMDrawerController.m in Sources */,
 				87B2A1461D5372B4001AAE68 /* ADCrossTransition.m in Sources */,
 				87B2A14B1D5372B4001AAE68 /* ADFoldTransition.m in Sources */,

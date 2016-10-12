@@ -224,13 +224,13 @@ const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
 
 -(void)onRNReload
 {
-  [[NSNotificationCenter defaultCenter] removeObserver:self.view];
-  self.view = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    self.view = nil;
 }
 
 -(void)onCancelReactTouches
 {
-  if ([self.view respondsToSelector:@selector(cancelTouches)]){
+  if ([self.view isKindOfClass:[RCTRootView class]]){
     [(RCTRootView*)self.view cancelTouches];
   }
 }
@@ -265,7 +265,14 @@ const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
 {
   [super viewWillDisappear:animated];
   
-  [self setStyleOnDisappear];
+    if (self.isMovingFromParentViewController) {
+      dispatch_async(dispatch_get_main_queue(), ^{
+        if (!self.popAction) {
+            [self onPop];
+        }
+      });
+    }
+  
 }
 
 // most styles should be set here since when we pop a view controller that changed them

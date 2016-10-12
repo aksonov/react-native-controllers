@@ -14,6 +14,7 @@
   NSDictionary*_globalProps;
   RCTBridge *_bridge;
   BOOL popAction;
+  BOOL popInProgress;
 }
 
 
@@ -56,6 +57,7 @@
 
 - (void)performAction:(NSString*)performAction actionParams:(NSDictionary*)actionParams bridge:(RCTBridge *)bridge
 {
+  RCCViewController *parent = (RCCViewController*)self.topViewController;
   BOOL animated = actionParams[@"animated"] ? [actionParams[@"animated"] boolValue] : YES;
   
   // setButtons
@@ -83,6 +85,28 @@
     return;
   }
   
+  NSDictionary *navigatorStyle = actionParams[@"style"];
+  
+  // merge the navigatorStyle of our parent
+  if ([self.topViewController isKindOfClass:[RCCViewController class]])
+  {
+    NSMutableDictionary *mergedStyle = [NSMutableDictionary dictionaryWithDictionary:parent.navigatorStyle];
+    
+    // there are a few styles that we don't want to remember from our parent (they should be local)
+    [mergedStyle removeObjectForKey:@"navBarHidden"];
+    [mergedStyle removeObjectForKey:@"statusBarHidden"];
+    [mergedStyle removeObjectForKey:@"navBarHideOnScroll"];
+    [mergedStyle removeObjectForKey:@"drawUnderNavBar"];
+    [mergedStyle removeObjectForKey:@"drawUnderTabBar"];
+    [mergedStyle removeObjectForKey:@"statusBarBlur"];
+    [mergedStyle removeObjectForKey:@"navBarBlur"];
+    [mergedStyle removeObjectForKey:@"navBarTranslucent"];
+    [mergedStyle removeObjectForKey:@"statusBarHideWithNavBar"];
+    
+    [mergedStyle addEntriesFromDictionary:navigatorStyle];
+    navigatorStyle = mergedStyle;
+  }
+  
   // push
   if ([performAction isEqualToString:@"push"])
   {
@@ -97,7 +121,6 @@
           return;
         }
       }
-      RCCViewController *parent = (RCCViewController*)self.topViewController;
       for (int i=0;i<[_children count];i++){
         if ([_children[i] isEqual:[NSNull null]]){
           continue;
@@ -115,40 +138,17 @@
     } else {
     
     NSDictionary *passProps = actionParams[@"passProps"];
-    NSDictionary *navigatorStyle = actionParams[@"style"];
-    
-    // merge the navigatorStyle of our parent
-    if ([self.topViewController isKindOfClass:[RCCViewController class]])
-    {
-      RCCViewController *parent = (RCCViewController*)self.topViewController;
-      NSMutableDictionary *mergedStyle = [NSMutableDictionary dictionaryWithDictionary:parent.navigatorStyle];
-      
-      // there are a few styles that we don't want to remember from our parent (they should be local)
-      [mergedStyle removeObjectForKey:@"navBarHidden"];
-      [mergedStyle removeObjectForKey:@"statusBarHidden"];
-      [mergedStyle removeObjectForKey:@"navBarHideOnScroll"];
-      [mergedStyle removeObjectForKey:@"drawUnderNavBar"];
-      [mergedStyle removeObjectForKey:@"drawUnderTabBar"];
-      [mergedStyle removeObjectForKey:@"statusBarBlur"];
-      [mergedStyle removeObjectForKey:@"navBarBlur"];
-      [mergedStyle removeObjectForKey:@"navBarTranslucent"];
-      [mergedStyle removeObjectForKey:@"statusBarHideWithNavBar"];
-      
-      [mergedStyle addEntriesFromDictionary:navigatorStyle];
-      navigatorStyle = mergedStyle;
-    }
-    
     viewController = [[RCCViewController alloc] initWithComponent:component passProps:passProps navigatorStyle:navigatorStyle globalProps:nil bridge:bridge];
     }
     [self pushViewController:viewController animated:animated];
     return;
   }
-  popAction = NO;
+  parent.popAction = NO;
   
   // pop
   if ([performAction isEqualToString:@"pop"])
   {
-    popAction = YES;
+    parent.popAction = YES;
     [self popViewControllerAnimated:animated];
     return;
   }
@@ -156,6 +156,7 @@
   // popToRoot
   if ([performAction isEqualToString:@"popToRoot"])
   {
+    parent.popAction = YES;
     [self popToRootViewControllerAnimated:animated];
     return;
   }
@@ -167,12 +168,16 @@
     if (!component) return;
     
     NSDictionary *passProps = actionParams[@"passProps"];
-    NSDictionary *navigatorStyle = actionParams[@"style"];
     
     RCCViewController *viewController = [[RCCViewController alloc] initWithComponent:component passProps:passProps navigatorStyle:navigatorStyle globalProps:nil bridge:bridge];
     
     BOOL animated = actionParams[@"animated"] ? [actionParams[@"animated"] boolValue] : YES;
-    
+    if ([navigatorStyle[@"navBarHidden"] boolValue]){
+      self.navigationBar.hidden = YES;
+    } else {
+      self.navigationBar.hidden = NO;
+    }
+    parent.popAction = YES;
     [self setViewControllers:@[viewController] animated:animated];
     return;
   }
@@ -207,21 +212,24 @@
     }
 }
 
-- (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item {
-    RCCViewController* vc = [self topViewController];
-    dispatch_async(dispatch_get_main_queue(), ^{
-      if (!popAction) {
-        if ([vc shouldPop]){
-            [self popViewControllerAnimated:YES];
-        } else {
-            [vc onPop];
-        }
-      } else {
-        [self popViewControllerAnimated:YES];
-      }
-    });
-  popAction = NO;
-  return YES;
-}
+//
+//- (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item {
+//    RCCViewController* vc = [self topViewController];
+//  __block BOOL isAction = popAction;
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//      if (!isAction) {
+//        if ([vc shouldPop]){
+//            [self popViewControllerAnimated:YES];
+//        } else {
+//            [vc onPop];
+//        }
+//      } else {
+//        int a = 1;
+//        //[self popViewControllerAnimated:YES];
+//      }
+//    });
+//  popAction = NO;
+//  return YES;
+//}
 
 @end
