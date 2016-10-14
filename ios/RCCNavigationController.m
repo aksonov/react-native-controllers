@@ -139,6 +139,9 @@
     
     NSDictionary *passProps = actionParams[@"passProps"];
     viewController = [[RCCViewController alloc] initWithComponent:component passProps:passProps navigatorStyle:navigatorStyle globalProps:nil bridge:bridge];
+      if ([viewController respondsToSelector:@selector(setProps:)]){
+        [viewController setProps:passProps];
+      }
     }
     [self pushViewController:viewController animated:animated];
     return;
@@ -177,7 +180,27 @@
     } else {
       self.navigationBar.hidden = NO;
     }
+    if ([viewController respondsToSelector:@selector(setProps:)]){
+      [viewController setProps:passProps];
+    }
     parent.popAction = YES;
+    NSString *title = actionParams[@"title"];
+    if (title){
+      viewController.title = title;
+    }
+    [viewController setTitleImage:actionParams[@"titleImage"]];
+    
+    NSArray *leftButtons = actionParams[@"leftButtons"];
+    if (leftButtons)
+    {
+      [viewController setButtons:leftButtons side:@"left" animated:NO];
+    }
+    
+    NSArray *rightButtons = actionParams[@"rightButtons"];
+    if (rightButtons)
+    {
+      [viewController setButtons:rightButtons side:@"right" animated:NO];
+    }
     [self setViewControllers:@[viewController] animated:animated];
     return;
   }
