@@ -127,6 +127,9 @@ NSString const *POP_ACTION_KEY = @"RCCViewController.POP_ACTION_KEY";
         
         NSString *navBarTextColor = button[@"textColor"];
         if (!navBarTextColor){
+            navBarTextColor = self.parentStyle[[side isEqualToString:@"right"] ?@"navBarRightButtonColor" : @"navBarLeftButtonColor"];
+        }
+        if (!navBarTextColor){
             navBarTextColor = self.parentStyle[@"navBarButtonColor"];
         }
         NSString *navBarFontFamily = button[@"fontFamily"];

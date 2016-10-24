@@ -51,12 +51,12 @@ RCT_EXPORT_MODULE();
     [self sendEventWithName:@"WillPop" body:callbackId];
 }
 
--(void)willTransition:(NSString *)callbackId {
-    [self sendEventWithName:@"WillTransition" body:callbackId];
+-(void)willTransition:(NSString *)callbackId side:(NSString *)side percentage:(float)percentage {
+    [self sendEventWithName:@"WillTransition" body:@{@"callbackId": callbackId, @"side": side, @"percentage": [NSNumber numberWithFloat:percentage]}];
 }
 
--(void)didTransition:(NSString *)callbackId {
-    [self sendEventWithName:@"DidTransition" body:callbackId];
+-(void)didTransition:(NSString *)callbackId side:(NSString *)side {
+    [self sendEventWithName:@"DidTransition" body:@{@"callbackId": callbackId, @"side": side}];
 }
 
 @end

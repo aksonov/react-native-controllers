@@ -66,12 +66,12 @@
     
     [self setDrawerVisualStateBlock:^(MMDrawerController *drawerController, MMDrawerSide drawerSide, CGFloat percentVisible) {
         MMDrawerControllerDrawerVisualStateBlock block;
-        if (percentVisible == 1.0f){
-            [[RCCEventEmitter sharedInstance] willTransition:self.navigatorID];
+        if (percentVisible > 0){
+            [[RCCEventEmitter sharedInstance] willTransition:self.navigatorID side:drawerSide == MMDrawerSideLeft ? @"left" : @"right" percentage:percentVisible];
         }
-        if (percentVisible == 0.0f){
-            [[RCCEventEmitter sharedInstance] didTransition:self.navigatorID];
-        }
+//        if (percentVisible == 0.0f){
+//            [[RCCEventEmitter sharedInstance] didTransition:self.navigatorID];
+//        }
         block = [[MMExampleDrawerVisualStateManager sharedManager] drawerVisualStateBlockForDrawerSide:drawerSide];
         if (block) {
             block(drawerController, drawerSide, percentVisible);
@@ -79,7 +79,7 @@
     }];
     
     [self setGestureCompletionBlock:^(MMDrawerController *drawerController, UIGestureRecognizer *gesture) {
-        [[RCCEventEmitter sharedInstance] didTransition:self.navigatorID];
+        [[RCCEventEmitter sharedInstance] didTransition:self.navigatorID side:drawerController.openSide == MMDrawerSideLeft ? @"left" : drawerController.openSide == MMDrawerSideRight ? @"right" : @""];
     }];
     
     [self setGestureStartBlock:^(MMDrawerController *drawerController, UIGestureRecognizer *gesture) {
@@ -134,7 +134,11 @@
     if ([performAction isEqualToString:@"close"])
     {
         if (self.openSide == side) {
-            [self closeDrawerAnimated:animated completion:nil];
+            [self closeDrawerAnimated:animated completion:^(BOOL finished) {
+                if (finished){
+                    [[RCCEventEmitter sharedInstance] didTransition:self.navigatorID side:self.openSide == MMDrawerSideLeft ? @"left" : self.openSide == MMDrawerSideRight ? @"right" : @""];
+                }
+            }];
         }
         
         return;

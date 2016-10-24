@@ -18,6 +18,6 @@
 - (void)didFocus:(NSString *)callbackId;
 - (void)willFocus:(NSString *)callbackId;
 - (void)willPop:(NSString *)callbackId;
-- (void)willTransition:(NSString *)callbackId;
-- (void)didTransition:(NSString *)callbackId;
+- (void)willTransition:(NSString *)callbackId side:(NSString *)side percentage:(float )percentage;
+-(void)didTransition:(NSString *)callbackId side:(NSString *)side;
 @end
