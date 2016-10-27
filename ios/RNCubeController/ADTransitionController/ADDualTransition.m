@@ -7,6 +7,7 @@
 //
 
 #import "ADDualTransition.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation ADDualTransition
 @synthesize inAnimation = _inAnimation;
@@ -59,7 +60,7 @@
 #pragma mark CAAnimationDelegate
 - (void)animationDidStop:(CAAnimation *)animation finished:(BOOL)flag {
     if ([[animation valueForKey:ADTransitionAnimationKey] isEqualToString:ADTransitionAnimationInValue]) {
-        [super animationDidStop:animation finished:flag];
+        [animation.delegate animationDidStop:animation finished:flag];
     }
 }
 
