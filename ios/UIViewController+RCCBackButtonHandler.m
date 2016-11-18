@@ -24,7 +24,7 @@
 //
 
 #import "UIViewController+RCCBackButtonHandler.h"
-
+#import "RCCManager.h"
 @implementation UIViewController (RCCBackButtonHandler)
 
 @end
@@ -45,6 +45,8 @@
 
 	if(shouldPop) {
 		dispatch_async(dispatch_get_main_queue(), ^{
+            [[RCCManager sharedInstance] unregisterController:[self topViewController]];
+
 			[self popViewControllerAnimated:YES];
 		});
 	} else {

@@ -152,6 +152,7 @@
   if ([performAction isEqualToString:@"pop"])
   {
     parent.popAction = YES;
+    [[RCCManager sharedInstance] unregisterController:[self topViewController]];
     [self popViewControllerAnimated:animated];
     return;
   }
