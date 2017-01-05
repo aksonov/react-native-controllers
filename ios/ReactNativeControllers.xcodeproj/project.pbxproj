@@ -141,7 +141,7 @@
 		87B2A13F1D5372B4001AAE68 /* ADZoomTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADZoomTransition.m; sourceTree = "<group>"; };
 		87B2A1401D5372B4001AAE68 /* UIViewController+ADTransitionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ADTransitionController.h"; sourceTree = "<group>"; };
 		87B2A1411D5372B4001AAE68 /* UIViewController+ADTransitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ADTransitionController.m"; sourceTree = "<group>"; };
-		87B2A1421D5372B4001AAE68 /* RNCubeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNCubeController.h; path = RNCubeController/RNCubeController.h; sourceTree = "<group>"; };
+		87B2A1421D5372B4001AAE68 /* RNCubeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = RNCubeController.h; path = RNCubeController/RNCubeController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		87B2A1431D5372B4001AAE68 /* RNCubeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNCubeController.m; path = RNCubeController/RNCubeController.m; sourceTree = "<group>"; };
 		87D2DE201D675C1200F44EDA /* FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBKVOController.h; sourceTree = "<group>"; };
 		87D2DE211D675C1200F44EDA /* FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBKVOController.m; sourceTree = "<group>"; };
@@ -151,14 +151,14 @@
 		87E94A221D65B78600B26FD6 /* UINavigationBar+PassTouches.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+PassTouches.h"; sourceTree = "<group>"; };
 		87E94A231D65B78600B26FD6 /* UINavigationBar+PassTouches.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+PassTouches.m"; sourceTree = "<group>"; };
 		CC84A1931C1A0C4E00B3A6A2 /* RCCManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCCManager.h; sourceTree = "<group>"; };
-		CC84A1941C1A0C4E00B3A6A2 /* RCCManager.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = RCCManager.m; sourceTree = "<group>"; tabWidth = 2; };
+		CC84A1941C1A0C4E00B3A6A2 /* RCCManager.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = RCCManager.m; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		CC84A1951C1A0C4E00B3A6A2 /* RCCManagerModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCCManagerModule.h; sourceTree = "<group>"; };
 		CC84A1961C1A0C4E00B3A6A2 /* RCCManagerModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCCManagerModule.m; sourceTree = "<group>"; };
-		CC84A1971C1A0C4E00B3A6A2 /* RCCNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCCNavigationController.h; sourceTree = "<group>"; };
+		CC84A1971C1A0C4E00B3A6A2 /* RCCNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = RCCNavigationController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		CC84A1981C1A0C4E00B3A6A2 /* RCCNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = RCCNavigationController.m; sourceTree = "<group>"; tabWidth = 2; };
-		CC84A1991C1A0C4E00B3A6A2 /* RCCTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCCTabBarController.h; sourceTree = "<group>"; };
+		CC84A1991C1A0C4E00B3A6A2 /* RCCTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = RCCTabBarController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		CC84A19A1C1A0C4E00B3A6A2 /* RCCTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = RCCTabBarController.m; sourceTree = "<group>"; tabWidth = 2; };
-		CC84A19B1C1A0C4E00B3A6A2 /* RCCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCCViewController.h; sourceTree = "<group>"; };
+		CC84A19B1C1A0C4E00B3A6A2 /* RCCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = RCCViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		CC84A19C1C1A0C4E00B3A6A2 /* RCCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = RCCViewController.m; sourceTree = "<group>"; tabWidth = 2; };
 		D68557901D541779004D1904 /* UIViewController+RCCBackButtonHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+RCCBackButtonHandler.h"; sourceTree = "<group>"; };
 		D68557911D54177A004D1904 /* UIViewController+RCCBackButtonHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+RCCBackButtonHandler.m"; sourceTree = "<group>"; };
@@ -178,7 +178,7 @@
 		D85082C51CBCF42400FDB961 /* MMExampleDrawerVisualStateManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MMExampleDrawerVisualStateManager.m; sourceTree = "<group>"; };
 		D85082C61CBCF42400FDB961 /* UIViewController+MMDrawerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MMDrawerController.h"; sourceTree = "<group>"; };
 		D85082C71CBCF42400FDB961 /* UIViewController+MMDrawerController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MMDrawerController.m"; sourceTree = "<group>"; };
-		D85082C81CBCF42400FDB961 /* RCCDrawerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCCDrawerController.h; sourceTree = "<group>"; };
+		D85082C81CBCF42400FDB961 /* RCCDrawerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = RCCDrawerController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		D85082CA1CBCF54200FDB961 /* RCCDrawerHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCCDrawerHelper.h; sourceTree = "<group>"; };
 		D85082CB1CBCF54200FDB961 /* RCCDrawerHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCCDrawerHelper.m; sourceTree = "<group>"; };
 		D85082CC1CBCF54200FDB961 /* RCCDrawerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCCDrawerProtocol.h; sourceTree = "<group>"; };
@@ -634,6 +634,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../react-native/React/**",
+					"$(BUILT_PRODUCTS_DIR)/include/**",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -647,6 +648,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../react-native/React/**",
+					"$(BUILT_PRODUCTS_DIR)/include/**",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";

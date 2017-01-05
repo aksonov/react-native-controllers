@@ -1,5 +1,5 @@
 #import "RCCManager.h"
-#import "RCTBridge.h"
+#import <React/RCTBridge.h>
 #import "RCTRedBox.h"
 #import <Foundation/Foundation.h>
 #import "RCCEventEmitter.h"
@@ -39,7 +39,7 @@
   {
     self.modulesRegistry = [@{} mutableCopy];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onRNReload) name:RCTReloadNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onRNReload) name:RCTJavaScriptDidLoadNotification object:nil];
   }
   return self;
 }

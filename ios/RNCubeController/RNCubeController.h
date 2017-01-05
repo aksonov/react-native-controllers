@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RCTBridge.h"
+#import <React/RCTBridge.h>
 #import "ADTransitionController/ADTransitionController.h"
 @interface RNCubeController : ADTransitionController
 

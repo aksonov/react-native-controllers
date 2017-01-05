@@ -3,7 +3,7 @@
 #import "MMExampleDrawerVisualStateManager.h"
 #import "RCCDrawerHelper.h"
 #import "RCTConvert.h"
-#import "RCTRootView.h"
+#import <React/RCTRootView.h>
 #import "RCCEventEmitter.h"
 #import "UIViewController+NavBarButtons.h"
 #import "RCCManagerModule.h"

@@ -1,9 +1,9 @@
 #import "RCCNavigationController.h"
 #import "RCCViewController.h"
 #import "RCCManager.h"
-#import "RCTEventDispatcher.h"
-#import "RCTConvert.h"
-#import "RCTRootView.h"
+#import <React/RCTEventDispatcher.h>
+#import <React/RCTConvert.h>
+#import <React/RCTRootView.h>
 #import "UIBarButtonItem+Badge.h"
 #import "UIViewController+NavBarButtons.h"
 #import <objc/runtime.h>
