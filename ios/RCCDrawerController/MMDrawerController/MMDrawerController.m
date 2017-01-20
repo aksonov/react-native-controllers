@@ -210,8 +210,8 @@ static NSString *MMDrawerOpenSideKey = @"MMDrawerOpenSide";
 }
 
 -(void)commonSetup{
-    [self setMaximumLeftDrawerWidth:MMDrawerDefaultWidth];
-    [self setMaximumRightDrawerWidth:MMDrawerDefaultWidth];
+    [self setMaximumLeftDrawerWidth:272];
+    [self setMaximumRightDrawerWidth:112];
     
     [self setAnimationVelocity:MMDrawerDefaultAnimationVelocity];
     
